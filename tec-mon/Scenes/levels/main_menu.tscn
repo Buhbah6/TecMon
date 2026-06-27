@@ -39,8 +39,7 @@ mouse_filter = 2
 script = ExtResource("4_457bt")
 canvas_parent = NodePath("..")
 background = NodePath("../../Background")
-bg_move_amount = 10.0
-bg_tween_time = 240.0
+bg_tween_time = 20.0
 
 [node name="Logo" type="Sprite2D" parent="CanvasLayer/MenuSection" unique_id=118214155]
 position = Vector2(156, 46.999996)

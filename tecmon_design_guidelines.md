@@ -11,6 +11,11 @@ This document defines the required sprite set for each TecMon design.
 - Keep the silhouette readable at small size.
 - Use consistent proportions and visual language across all evolutions.
 
+## Additional Sprite Sizes
+
+- Items must fit within a 24 x 24 pixel space.
+- Small creature sprites must fit within a 32 x 32 pixel space.
+
 ## Evolution Outline
 
 The TecMon line follows this progression:
