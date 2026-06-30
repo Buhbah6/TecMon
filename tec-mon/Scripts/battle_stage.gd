@@ -33,6 +33,7 @@ func _ready() -> void:
 	BattleSystem.battle_ended.connect(_on_battle_ended)
 	BattleSystem.turn_ended.connect(_on_turn_ended)
 	BattleSystem.move_executed.connect(_on_move_executed)
+	BattleSystem.switch_mon.connect(_on_force_switch)
 	
 	buttons = [move_one, move_two, move_three, move_four]
 	
@@ -42,6 +43,7 @@ func _ready() -> void:
 	move_four.pressed.connect(_on_move_button_pressed.bind(3))
 	hide()
 	tecmon_ui.hide()
+	
 
 func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
 	## Block movement and show the encounter message. BattleSystem hasn't
@@ -150,17 +152,23 @@ func _on_tecmons_pressed() -> void:
 		child.queue_free()
 
 	for tecmon: TecmonInstance in Global.player.tecmon_party:
+		var idx = Global.player.tecmon_party.find(tecmon)
 		var details = tecmon_details_template.instantiate()
+		details.idx = idx
 		tecmon_detail_container.add_child(details)
 		details.get_node("%MiniTecmon").texture = tecmon.data.mini_sprite
 		details.get_node("%TecmonName").text = tecmon.display_name()
 		details.get_node("%TecmonLvl").text = "Lv." + str(tecmon.level)
+		details.get_node("%TecmonHP").text = "HP: " + str(tecmon.current_hp) + "/" + str(tecmon.max_hp)
+		if tecmon.current_hp <= 0:
+			details.disabled = true
+		
+		details.selected.connect(_on_tecmon_switched)
 
 	tecmon_ui.show()
 	MessageBus._message_box.hide()
 	battle_ui.hide()
 	
-	pass  ## TODO
 
 func _on_escape_pressed() -> void:
 	if not can_input:
@@ -185,6 +193,22 @@ func _on_battle_ended(outcome: BattleSystem.BattleOutcome) -> void:
 	hide()
 	AudioManager.play_music(SceneManager.current_level.bgm)
 	await SceneManager._transition_in()
+
+func _on_force_switch() -> void:
+	can_input = true
+	MessageBus._message_box.hide()
+	tecmon_ui.get_node("%BackButton").disabled = true
+	tecmon_ui.get_node("%BackButton").hide()
+	_on_tecmons_pressed()
+	
+
+func _on_tecmon_switched() -> void:	
+	_refresh_hp_bars()
+	tecmon_ui.hide()
+	tecmon_ui.get_node("%BackButton").show()
+	tecmon_ui.get_node("%BackButton").disabled = false
+	MessageBus._message_box.show()
+	battle_ui.show()
 
 
 func _on_back_button_pressed() -> void:

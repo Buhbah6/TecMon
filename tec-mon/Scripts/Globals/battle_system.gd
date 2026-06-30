@@ -4,6 +4,7 @@ signal battle_started
 signal battle_ended(outcome: BattleOutcome)
 signal turn_ended
 signal move_executed(user: BattleParticipant, target: BattleParticipant, move: MoveInstance, result: MoveResult)
+signal switch_mon()
 
 enum BattleOutcome { PLAYER_WIN, PLAYER_FLED, PLAYER_LOST }
 enum TurnPhase { IDLE, AWAITING_INPUT, RESOLVING, ENDED }
@@ -83,18 +84,16 @@ func execute_turn() -> void:
 	if player_participant.is_fainted():
 		await _say(player_participant.display_name() + " fainted!")
 		if player_participant.all_fainted != true:
-			var count = 0
-			while player_participant.current_mon.is_fainted() and count <= player_participant.party.size():
-				if count < player_participant.party.size():
-					player_participant.current_mon = player_participant.party[count]
-				count += 1
-			print("Count out of While: " + str(count))
-			if count > player_participant.party.size():
-				player_participant.all_fainted = true
+			player_participant.all_fainted = true
+			for tecmon in player_participant.party:
+				if tecmon.current_hp > 0:
+					player_participant.all_fainted = false
+				
+			if player_participant.all_fainted:
 				_end_battle(BattleOutcome.PLAYER_LOST)
 				return
 			else:
-				await _say("Player sent out " + player_participant.current_mon.display_name())
+				switch_mon.emit()
 		else:
 			_end_battle(BattleOutcome.PLAYER_LOST)
 				
