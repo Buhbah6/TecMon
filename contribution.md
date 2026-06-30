@@ -5,6 +5,14 @@ Thank you for your interest in contributing to this public repository.
 This guide is written for students and beginners who may be new to GitHub.
 It explains the basic workflow for contributing a feature or fix.
 
+### Scrum board
+
+Before starting work, check the project Scrum board for current tasks and priorities:
+
+https://pixelgames.atlassian.net/?continue=https%3A%2F%2Fpixelgames.atlassian.net%2Fwelcome%2Fsoftware%3FprojectId%3D10000&atlOrigin=eyJpIjoiZWNiYzVkMmIxNjBhNDM0OTlhNTU3Y2ZkZTAxNWY2ODgiLCJwIjoiamlyYS1zb2Z0d2FyZSJ9
+
+If you are unsure what to work on, pick an open task from the board and ask a maintainer if you need clarification.
+
 ### 1. Fork the repository
 
 1. Open the TecMon repository on GitHub.
