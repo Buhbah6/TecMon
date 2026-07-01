@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://h6mjwm3mjri7"]
+
+[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="1_8yw8x"]
+[ext_resource type="Script" uid="uid://bn6istgxbq3y4" path="res://Scripts/item_details.gd" id="2_q3cbb"]
+
+[sub_resource type="Theme" id="Theme_awwja"]
+default_font = ExtResource("1_8yw8x")
+default_font_size = 8
+
+[node name="ItemDetails" type="Button" unique_id=298499731]
+custom_minimum_size = Vector2(0, 12)
+anchors_preset = -1
+anchor_right = 0.35
+anchor_bottom = 0.075
+offset_bottom = -4.0
+theme = SubResource("Theme_awwja")
+script = ExtResource("2_q3cbb")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=334342644]
+custom_maximum_size = Vector2(108, -1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017857177
+anchor_right = 0.98214287
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemName" type="Label" parent="HBoxContainer" unique_id=907829333]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Item name"
+
+[node name="ItemCount" type="Label" parent="HBoxContainer" unique_id=1484346417]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x99"
+horizontal_alignment = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

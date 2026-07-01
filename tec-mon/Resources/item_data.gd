@@ -19,7 +19,7 @@ enum Effect {
 
 @export_category("Basic Info")
 @export var item_name: String = ""
-@export var description: String = ""
+@export_multiline() var description: String = ""
 @export var icon: Texture2D
 @export var category: Category = Category.HEALING
 @export var can_use_in_battle: bool = true

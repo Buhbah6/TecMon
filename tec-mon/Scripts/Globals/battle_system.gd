@@ -3,8 +3,9 @@ extends Node
 signal battle_started
 signal battle_ended(outcome: BattleOutcome)
 signal turn_ended
+signal switch_mon
+signal stage_closed
 signal move_executed(user: BattleParticipant, target: BattleParticipant, move: MoveInstance, result: MoveResult)
-signal switch_mon()
 
 enum BattleOutcome { PLAYER_WIN, PLAYER_FLED, PLAYER_LOST }
 enum TurnPhase { IDLE, AWAITING_INPUT, RESOLVING, ENDED }
@@ -18,11 +19,10 @@ var _queued_player_move: MoveInstance = null
 var _player_is_fleeing: bool = false
 var _player_skipping: bool = false
 
-func start_battle(enemy_instance: Array[TecmonInstance], party: Array[TecmonInstance]) -> void:
+func start_battle(enemy_party: Array[TecmonInstance], party: Array[TecmonInstance]) -> void:
 	player_party = party
-	
 	player_participant = BattleParticipant.create(party, true)
-	enemy_participant  = BattleParticipant.create(enemy_instance, false)
+	enemy_participant  = BattleParticipant.create(enemy_party, false)
 	phase = TurnPhase.AWAITING_INPUT
 	battle_started.emit()
 
@@ -78,37 +78,26 @@ func execute_turn() -> void:
 
 	if enemy_participant.is_fainted():
 		await _say(enemy_participant.display_name() + " fainted!")
-		if enemy_participant.all_fainted != true:
-			var count = 0
-			while enemy_participant.current_mon.is_fainted() and count < enemy_participant.party.size():
-				enemy_participant.current_mon = enemy_participant.party[count]
-				count += 1
-			if count == enemy_participant.party.size():
-				enemy_participant.all_fainted = true
-				_end_battle(BattleOutcome.PLAYER_WIN)
-				return
-			else:
-				await _say("Enemy sent out " + enemy_participant.current_mon.display_name())
-				
+		var next = enemy_participant.next_living()
+		if next == null:
+			_end_battle(BattleOutcome.PLAYER_WIN)
+			return
+		enemy_participant.current_mon = next
+		enemy_participant.reset_stages()
+		await _say("Enemy sent out " + enemy_participant.display_name() + "!")
+
 	if player_participant.is_fainted():
 		await _say(player_participant.display_name() + " fainted!")
-		if player_participant.all_fainted != true:
-			player_participant.all_fainted = true
-			for tecmon in player_participant.party:
-				if tecmon.current_hp > 0:
-					player_participant.all_fainted = false
-				
-			if player_participant.all_fainted:
-				_end_battle(BattleOutcome.PLAYER_LOST)
-				return
-			else:
-				switch_mon.emit()
-		else:
+		var next = player_participant.next_living()
+		if next == null:
 			_end_battle(BattleOutcome.PLAYER_LOST)
-				
+			return
+		switch_mon.emit()
+		return
 
 	_queued_player_move = null
 	_player_is_fleeing = false
+	_player_skipping = false
 	phase = TurnPhase.AWAITING_INPUT
 	turn_ended.emit()
 
@@ -122,12 +111,9 @@ func _resolve_move(user: BattleParticipant, target: BattleParticipant, move_inst
 	var blocked_by := user.pre_move_ailment_check()
 	if blocked_by != Enums.TecmonAilment.NONE:
 		match blocked_by:
-			Enums.TecmonAilment.SLEEP:
-				await _say(user.display_name() + " is fast asleep!")
-			Enums.TecmonAilment.FREEZE:
-				await _say(user.display_name() + " is frozen solid!")
-			Enums.TecmonAilment.PARALYSIS:
-				await _say(user.display_name() + " is paralysed and can't move!")
+			Enums.TecmonAilment.SLEEP: await _say(user.display_name() + " is fast asleep!")
+			Enums.TecmonAilment.FREEZE: await _say(user.display_name() + " is frozen solid!")
+			Enums.TecmonAilment.PARALYSIS: await _say(user.display_name() + " is paralysed and can't move!")
 			Enums.TecmonAilment.CONFUSION:
 				await _say(user.display_name() + " is confused and hurt itself!")
 				user.take_damage(_calc_confusion_damage(user))
@@ -227,7 +213,7 @@ func _calc_confusion_damage(user: BattleParticipant) -> float:
 func _hit_check(move: MoveResource, user: BattleParticipant, target: BattleParticipant) -> bool:
 	if move.accuracy <= 0:
 		return true
-	var acc := (move.accuracy / 100.0)
+	var acc := move.accuracy / 100.0
 	acc *= user.effective_stat(Enums.TecmonStat.ACCURACY)
 	acc /= target.effective_stat(Enums.TecmonStat.EVASION)
 	return randf() < acc

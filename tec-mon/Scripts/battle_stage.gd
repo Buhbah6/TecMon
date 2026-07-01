@@ -1,6 +1,5 @@
 extends CanvasLayer
 
-
 @onready var battle_ui: Control = %BattleUI
 @onready var enemy_sprite: TextureRect = %EnemyTecmon
 @onready var player_sprite: TextureRect = %PlayerTecmon
@@ -19,12 +18,19 @@ extends CanvasLayer
 @onready var move_four: Button = %MoveFour
 
 @onready var tecmon_ui: Control = %TecmonUI
+@onready var item_ui: Control = %ItemUI
 
 @export var tecmon_details_template: PackedScene
+@export var item_details_template: PackedScene
+
 @onready var tecmon_detail_container: VBoxContainer = %TecmonDetailContainer
 @onready var tecmon_swap_texture: TextureRect = %TecmonSwapTexture
 @onready var animation_player: AnimationPlayer = $BattleUI/AnimationPlayer
 @onready var tecmon_desc: RichTextLabel = %TecmonDesc
+
+@onready var item_detail_container: VBoxContainer = %ItemDetailContainer
+@onready var item_swap_texture: TextureRect = %ItemSwapTexture
+@onready var item_desc: RichTextLabel = %ItemDesc
 
 var can_input: bool = false
 var buttons: Array[Button]
@@ -47,6 +53,7 @@ func _ready() -> void:
 	move_four.pressed.connect(_on_move_button_pressed.bind(3))
 	hide()
 	tecmon_ui.hide()
+	item_ui.hide()
 	
 
 func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
@@ -146,7 +153,26 @@ func _on_items_pressed() -> void:
 	if not can_input:
 		return
 	AudioManager.play_sfx("select")
-	pass  ## TODO
+	
+	for child in item_detail_container.get_children():
+		child.queue_free()
+	
+	var inventory: Inventory = Global.player.inventory
+	
+	for item: ItemData in inventory.all_items():
+		var idx = inventory.all_items().find(item)
+		var details = item_details_template.instantiate()
+		details.idx = idx
+		details.item = item
+		item_detail_container.add_child(details)
+		details.get_node("%ItemName").text = item.item_name
+		details.get_node("%ItemCount").text = "x" + str(inventory.quantity(item))
+		details.hovered.connect(_on_item_hovered.bind(details))
+		
+	_on_item_hovered(item_detail_container.get_child(0))
+	item_ui.show()
+	MessageBus._message_box.hide()
+	battle_ui.hide()
 
 func _on_tecmons_pressed() -> void:
 	if not can_input:
@@ -200,6 +226,7 @@ func _on_battle_ended(outcome: BattleSystem.BattleOutcome) -> void:
 	hide()
 	AudioManager.play_music(SceneManager.current_level.bgm)
 	await SceneManager._transition_in()
+	BattleSystem.stage_closed.emit()
 
 func _on_force_switch() -> void:
 	can_input = true
@@ -249,7 +276,19 @@ func _on_tecmon_hovered():
 	
 	tecmon_desc.text = text
 	
+func _on_item_hovered(button: Button):
+	var item: ItemData = button.item
+	item_swap_texture.texture = item.icon
+
+	var text: String = "%s\n%s" % [
+		item.item_name,
+		item.description,
+	]
+	
+	item_desc.text = text
+	
 func _on_back_button_pressed() -> void:
 	tecmon_ui.hide()
+	item_ui.hide()
 	MessageBus._message_box.show()
 	battle_ui.show()

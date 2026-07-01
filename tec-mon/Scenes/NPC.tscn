@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://csvgaeq6sqey4"]
 
 [ext_resource type="Script" uid="uid://dspetidqkug4k" path="res://Scripts/npc.gd" id="1_tdvfm"]
-[ext_resource type="Script" uid="uid://v1rv26b4ekdy" path="res://Resources/tecmon_data.gd" id="2_17t5b"]
 [ext_resource type="Texture2D" uid="uid://7c6x878jski6" path="res://Assets/Characters/ForestNpcs.png" id="2_fo5tq"]
-[ext_resource type="Resource" uid="uid://3a4e6ebwlj82" path="res://TecMons/shadow_saint.tres" id="3_fcq3e"]
-[ext_resource type="Resource" uid="uid://dcw1l5pnyp66n" path="res://TecMons/schrodinger.tres" id="5_xdsde"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tdvfm"]
 radius = 8.0
@@ -13,7 +10,6 @@ radius = 8.0
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_tdvfm")
-party_data = Array[ExtResource("2_17t5b")]([ExtResource("3_fcq3e"), ExtResource("5_xdsde"), ExtResource("3_fcq3e")])
 
 [node name="NPC" type="Sprite2D" parent="." unique_id=1357419899]
 texture = ExtResource("2_fo5tq")
