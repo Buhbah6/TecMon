@@ -3,15 +3,115 @@
 [ext_resource type="Script" uid="uid://dspetidqkug4k" path="res://Scripts/npc.gd" id="1_tdvfm"]
 [ext_resource type="Texture2D" uid="uid://7c6x878jski6" path="res://Assets/Characters/ForestNpcs.png" id="2_fo5tq"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tdvfm"]
-radius = 7.0
+[sub_resource type="Animation" id="Animation_fo5tq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("NPC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
 
-[node name="NPC" type="StaticBody2D" unique_id=105489987]
+[sub_resource type="Animation" id="Animation_xs5w8"]
+resource_name = "npc_forward"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_7fgga"]
+resource_name = "npc_left"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [3, 4, 5, 4]
+}
+
+[sub_resource type="Animation" id="Animation_faxwx"]
+resource_name = "npc_right"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [6, 7, 8, 7]
+}
+
+[sub_resource type="Animation" id="Animation_17t5b"]
+resource_name = "npc_up"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("NPC:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.20000002, 0.40000004, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [9, 10, 11, 10]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7fgga"]
+_data = {
+&"RESET": SubResource("Animation_fo5tq"),
+&"npc_forward": SubResource("Animation_xs5w8"),
+&"npc_left": SubResource("Animation_7fgga"),
+&"npc_right": SubResource("Animation_faxwx"),
+&"npc_up": SubResource("Animation_17t5b")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tdvfm"]
+radius = 7.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3rge"]
+size = Vector2(16, 64)
+
+[node name="NPC" type="CharacterBody2D" unique_id=367466507 node_paths=PackedStringArray("animation_player")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_tdvfm")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1088886024]
+libraries/ = SubResource("AnimationLibrary_7fgga")
 
 [node name="NPC" type="Sprite2D" parent="." unique_id=1357419899]
+unique_name_in_owner = true
 texture = ExtResource("2_fo5tq")
 centered = false
 offset = Vector2(0, -5)
@@ -24,3 +124,13 @@ region_rect = Rect2(0, 0, 48, 84)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1990663389]
 position = Vector2(8, 8)
 shape = SubResource("CircleShape2D_tdvfm")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1109582273]
+unique_name_in_owner = true
+position = Vector2(8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=297540372]
+position = Vector2(0, 32)
+shape = SubResource("RectangleShape2D_n3rge")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

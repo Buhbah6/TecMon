@@ -90,16 +90,9 @@ func execute_turn() -> void:
 		enemy_participant.reset_stages()
 		await _say("Enemy sent out " + enemy_participant.display_name() + "!")
 
-	if player_participant.is_fainted():
-		await _say(player_participant.display_name() + " fainted!")
-		var next = player_participant.next_living()
-		if next == null:
-			_end_battle(BattleOutcome.PLAYER_LOST)
-			return
-		switch_mon.emit()
-		
+	if await _check_player_faint():
 		return
-
+			
 	_queued_player_move = null
 	_player_is_fleeing = false
 	_player_skipping = false
@@ -177,10 +170,7 @@ func attempt_capture(item: ItemData) -> void:
 		await _resolve_move(enemy_participant, player_participant, enemy_move)
 		await _resolve_end_of_turn(player_participant)
 		await _resolve_end_of_turn(enemy_participant)
-		if player_participant.is_fainted():
-			await _say(player_participant.display_name() + " fainted!")
-			_end_battle(BattleOutcome.PLAYER_LOST)
-			return
+		await _check_player_faint()
 		phase = TurnPhase.AWAITING_INPUT
 		turn_ended.emit()
  
@@ -307,3 +297,13 @@ func _stat_label(stat: Enums.TecmonStat) -> String:
 		Enums.TecmonStat.ACCURACY: return "Accuracy"
 		Enums.TecmonStat.EVASION: return "Evasion"
 		_: return "stat"
+		
+func _check_player_faint() -> bool:
+	if player_participant.is_fainted():
+		await _say(player_participant.display_name() + " fainted!")
+		var next = player_participant.next_living()
+		if next == null:
+			_end_battle(BattleOutcome.PLAYER_LOST)
+			return true
+		switch_mon.emit()
+	return false
