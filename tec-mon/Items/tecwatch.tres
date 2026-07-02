@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_kd572")
-item_name = "Tecwatch"
+item_name = "TecWatch"
 description = "A modern Invention used for the capturing of Tecmons"
 icon = ExtResource("1_sy11h")
 category = 2

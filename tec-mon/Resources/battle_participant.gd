@@ -22,7 +22,11 @@ var trapped: bool = false
 static func create(p: Array[TecmonInstance], player_side: bool) -> BattleParticipant:
 	var bp := BattleParticipant.new()
 	bp.party = p
-	bp.current_mon = p[0]
+	for mon in p:
+		if not mon.is_fainted():
+			bp.current_mon = mon
+			break
+			
 	bp.is_player_side = player_side
 	return bp
 

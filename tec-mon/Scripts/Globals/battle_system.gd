@@ -19,11 +19,15 @@ var _queued_player_move: MoveInstance = null
 var _player_is_fleeing: bool = false
 var _player_skipping: bool = false
 
-func start_battle(enemy_party: Array[TecmonInstance], party: Array[TecmonInstance]) -> void:
+var npc_battle: bool = false
+var last_outcome: BattleOutcome = BattleOutcome.PLAYER_WIN
+
+func start_battle(enemy_party: Array[TecmonInstance], party: Array[TecmonInstance], is_npc: bool) -> void:
 	player_party = party
 	player_participant = BattleParticipant.create(party, true)
 	enemy_participant  = BattleParticipant.create(enemy_party, false)
 	phase = TurnPhase.AWAITING_INPUT
+	npc_battle = is_npc
 	battle_started.emit()
 
 func queue_move(move: MoveInstance) -> void:
@@ -93,6 +97,7 @@ func execute_turn() -> void:
 			_end_battle(BattleOutcome.PLAYER_LOST)
 			return
 		switch_mon.emit()
+		
 		return
 
 	_queued_player_move = null
@@ -157,6 +162,33 @@ func _apply_move_effects(move: MoveResource, user: BattleParticipant, target: Ba
 			var actual := recipient.modify_stage(change.stat, change.stages)
 			await _say(_stat_change_message(recipient, change.stat, actual))
 
+func attempt_capture(item: ItemData) -> void:
+	var enemy: TecmonInstance = enemy_participant.current_mon
+	var catch_rate := _calc_catch_rate(enemy, item)
+ 
+	if randf() < catch_rate:
+		Global.player.tecmon_party.append(enemy)
+		await _say("You caught " + enemy.display_name() + "!")
+		_end_battle(BattleOutcome.PLAYER_WIN)
+	else:
+		await _say(enemy.display_name() + " broke free!")
+		## Enemy still gets their turn after a failed capture.
+		var enemy_move := _pick_enemy_move()
+		await _resolve_move(enemy_participant, player_participant, enemy_move)
+		await _resolve_end_of_turn(player_participant)
+		await _resolve_end_of_turn(enemy_participant)
+		if player_participant.is_fainted():
+			await _say(player_participant.display_name() + " fainted!")
+			_end_battle(BattleOutcome.PLAYER_LOST)
+			return
+		phase = TurnPhase.AWAITING_INPUT
+		turn_ended.emit()
+ 
+func _calc_catch_rate(target: TecmonInstance, item: ItemData) -> float:
+	var base_rate: float = target.data.catch_rate / 100.0
+	var hp_factor: float = (3.0 * target.max_hp - 2.0 * target.current_hp) / (3.0 * target.max_hp)
+	return clamp(base_rate * hp_factor * item.capture_rate_modifier, 0.0, 1.0)
+
 func _resolve_end_of_turn(p: BattleParticipant) -> void:
 	if p.is_fainted():
 		return
@@ -192,6 +224,7 @@ func _calc_damage(user: BattleParticipant, target: BattleParticipant, move: Move
 	else:
 		atk = user.effective_stat(Enums.TecmonStat.SPECIAL_ATTACK)
 		def = target.effective_stat(Enums.TecmonStat.SPECIAL_DEFENSE)
+		
 	result.is_critical = randf() < 0.0625
 	result.effectiveness = _calc_effectiveness(move.move_type, target.current_mon.data)
 	var level_factor := (2.0 * user.current_mon.level / 5.0) + 2.0
@@ -219,6 +252,9 @@ func _hit_check(move: MoveResource, user: BattleParticipant, target: BattleParti
 	return randf() < acc
 
 func _can_flee() -> bool:
+	if npc_battle:
+		return false
+	
 	var p_spd := player_participant.effective_stat(Enums.TecmonStat.SPEED)
 	var e_spd := enemy_participant.effective_stat(Enums.TecmonStat.SPEED)
 	return p_spd >= e_spd or randf() < (p_spd * 128.0 / e_spd) / 255.0
@@ -228,6 +264,7 @@ func _pick_enemy_move() -> MoveInstance:
 	return available[randi() % available.size()] if not available.is_empty() else null
 
 func _end_battle(outcome: BattleOutcome) -> void:
+	last_outcome = outcome
 	phase = TurnPhase.ENDED
 	player_participant.reset_battle_state()
 	enemy_participant.reset_battle_state()

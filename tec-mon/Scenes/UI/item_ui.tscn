@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://c3mwntiqbtsv7"]
+
+[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="1_jga5b"]
+[ext_resource type="Script" uid="uid://peoimpdvsoy0" path="res://Scripts/UI/item_ui.gd" id="2_bf75p"]
+[ext_resource type="Texture2D" uid="uid://jf1xrasv85op" path="res://Assets/UI/tecmon_menu.png" id="2_ytgoh"]
+[ext_resource type="Texture2D" uid="uid://dl3hbw0qxuj1q" path="res://Assets/UI/tecmon_frame.png" id="3_bf75p"]
+[ext_resource type="PackedScene" uid="uid://h6mjwm3mjri7" path="res://Scenes/UI/item_details.tscn" id="3_s6x56"]
+[ext_resource type="Texture2D" uid="uid://c7uc27cijdppx" path="res://Assets/Item/tecwatchv2.png" id="4_s6x56"]
+
+[sub_resource type="Theme" id="Theme_awwja"]
+default_font = ExtResource("1_jga5b")
+default_font_size = 8
+
+[node name="ItemUI" type="Control" unique_id=558686737]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_awwja")
+script = ExtResource("2_bf75p")
+details_template = ExtResource("3_s6x56")
+metadata/_edit_use_anchors_ = true
+
+[node name="BG" type="TextureRect" parent="." unique_id=1368829214]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_ytgoh")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1240638223]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.05
+anchor_right = 0.925
+anchor_bottom = 0.95
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemDetailContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=58916451]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(136, 0)
+custom_maximum_size = Vector2(-1, 144)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1746583293]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 136.0
+offset_bottom = 80.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_bf75p")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="ItemSwapTexture" type="TextureRect" parent="NinePatchRect" unique_id=1987014238]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+custom_maximum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_s6x56")
+
+[node name="BackButton" type="Button" parent="." unique_id=1949025549]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_top = 136.0
+offset_right = 136.0
+offset_bottom = 152.0
+text = "back"
+
+[node name="ItemDesc" type="RichTextLabel" parent="." unique_id=1639257287]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 88.0
+offset_right = 136.0
+offset_bottom = 128.0
+text = "placholder"
