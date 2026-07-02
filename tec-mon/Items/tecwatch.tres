@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://bgmhwriucjoh7"]
+
+[ext_resource type="Script" uid="uid://dpft60kc5xspu" path="res://Resources/item_data.gd" id="1_kd572"]
+[ext_resource type="Texture2D" uid="uid://c7uc27cijdppx" path="res://Assets/Item/tecwatchv2.png" id="1_sy11h"]
+
+[resource]
+script = ExtResource("1_kd572")
+item_name = "TecWatch"
+description = "A modern Invention used for the capturing of Tecmons"
+icon = ExtResource("1_sy11h")
+category = 2
+can_use_in_field = false
+purchasable = false
+metadata/_custom_type_script = "uid://dpft60kc5xspu"

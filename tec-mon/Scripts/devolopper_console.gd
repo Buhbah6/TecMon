@@ -15,7 +15,7 @@ func _ready() -> void:
 	ui.hide()
 	_register_all()
 	
-func interact() -> void:
+func interact(_player: Player) -> void:
 	if ui.visible:
 		return
 	AudioManager.play_sfx("open_chest")

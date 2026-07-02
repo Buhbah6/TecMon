@@ -183,8 +183,7 @@ func _check_interaction() -> void:
 	for result in results:
 		var collider := result["collider"] as Node
 		if collider and collider.has_method("interact"):
-			collider.interact()
-			break
+			collider.interact(self)
 
 ## Returns true when the tile at the target_position blocks movement. (Has a collision layer)
 func is_target_occupied(target_pos: Vector2) -> bool:

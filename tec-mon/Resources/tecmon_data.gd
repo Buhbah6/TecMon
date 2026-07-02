@@ -43,7 +43,7 @@ class_name TecmonData
 @export var min_level: int = 2
 @export var max_level: int = 5
 @export var weight: int = 10 ## Higher = more common in encounter tables.
-@export var catch_rate: float = 50.0
+@export_range(1, 100, 1) var catch_rate: float = 50.0 ## Lower = harder to catch
 
 ## Returns every move learnable at or below the given level (for starter movesets).
 func moves_available_at(level: int) -> Array[MoveResource]:

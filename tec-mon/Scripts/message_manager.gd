@@ -113,7 +113,7 @@ func play_text(payload: Array[String], speed: int) -> void:
 		return
 	visible = true
 	process_mode = Node.PROCESS_MODE_INHERIT
-	Messages = payload
+	Messages = payload.duplicate()
 	box.visible = true
 
 	while not Messages.is_empty():

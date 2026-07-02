@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://nmbprscscg8s"]
+
+[ext_resource type="Texture2D" uid="uid://cy180kc2jb1hn" path="res://Assets/Item/cartridge.png" id="1_6cene"]
+[ext_resource type="Script" uid="uid://dpft60kc5xspu" path="res://Resources/item_data.gd" id="1_7417t"]
+
+[resource]
+script = ExtResource("1_7417t")
+item_name = "Basic Cartridge"
+description = "TecWatch Cartridges are used to catch wild TecMon"
+icon = ExtResource("1_6cene")
+category = 1
+can_use_in_field = false
+effect = 9
+buy_price = 100
+sell_price = 75
+metadata/_custom_type_script = "uid://dpft60kc5xspu"

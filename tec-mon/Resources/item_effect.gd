@@ -3,13 +3,12 @@ class_name ItemEffect
 
 enum UseResult {
 	SUCCESS,
-	FAILED, ## Target condition not met
-	NOT_FAINTED, ## Tried to revive a conscious tecmon.
-	IS_FAINTED, ## Tried to heal a fainted tecmon.
+	FAILED,
+	NOT_FAINTED,
+	IS_FAINTED,
+	NEEDS_CAPTURE,
 }
 
-## Apply an item to a TecmonInstance outside of battle.
-## Returns a UseResult and a message.
 static func use_on_instance(item: ItemData, target: TecmonInstance) -> Dictionary:
 	match item.effect:
 		ItemData.Effect.RESTORE_HP:
@@ -64,23 +63,19 @@ static func use_on_instance(item: ItemData, target: TecmonInstance) -> Dictionar
 
 	return _fail(UseResult.FAILED, "Nothing happened.")
 
-## Apply an item to a BattleParticipant during battle.
-## BattleSystem calls this and then _say()s the returned message.
-static func use_in_battle(item: ItemData, target: BattleParticipant) -> Dictionary:
+static func use_in_battle(item: ItemData, participant: BattleParticipant) -> Dictionary:
 	match item.effect:
-		ItemData.Effect.STAT_INCREASE:
-			var actual := target.modify_stage(item.stat_target, item.stat_stages)
-			if actual == 0:
-				return _fail(UseResult.FAILED, target.display_name() + "'s stat won't go any higher!")
-			return _ok(target.display_name() + "'s " + _stat_label(item.stat_target) + " rose!")
-
 		ItemData.Effect.CAPTURE:
-			## Capture logic lives in BattleSystem — this item just signals intent.
-			return _ok("__capture__")
+			return { "result": UseResult.NEEDS_CAPTURE, "message": "" }
+
+		ItemData.Effect.STAT_INCREASE:
+			var actual := participant.modify_stage(item.stat_target, item.stat_stages)
+			if actual == 0:
+				return _fail(UseResult.FAILED, participant.display_name() + "'s stat won't go any higher!")
+			return _ok(participant.display_name() + "'s " + _stat_label(item.stat_target) + " rose!")
 
 		_:
-			## All healing/cure effects delegate to use_on_instance.
-			return use_on_instance(item, target.instance)
+			return use_on_instance(item, participant.current_mon)
 
 static func use_pp_restore(item: ItemData, target: TecmonInstance, move_slot: int) -> Dictionary:
 	if move_slot < 0 or move_slot >= target.moves.size():
@@ -88,7 +83,7 @@ static func use_pp_restore(item: ItemData, target: TecmonInstance, move_slot: in
 	var m: MoveInstance = target.moves[move_slot]
 	if m.current_pp >= m.move.max_pp:
 		return _fail(UseResult.FAILED, m.move.move_name + "'s PP is already full!")
-	m.restore(item.hp_amount if item.hp_amount > 0 else -1)
+	m.restore(int(item.hp_amount) if item.hp_amount > 0 else -1)
 	return _ok(m.move.move_name + "'s PP was restored.")
 
 static func _ok(msg: String) -> Dictionary:

@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://brqllpn4l2iku"]
+
+[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="1_ygqyw"]
+[ext_resource type="Script" uid="uid://c17jutargvulh" path="res://Scripts/UI/tecmon_ui.gd" id="2_6aeki"]
+[ext_resource type="Texture2D" uid="uid://jf1xrasv85op" path="res://Assets/UI/tecmon_menu.png" id="2_xcssh"]
+[ext_resource type="Texture2D" uid="uid://dl3hbw0qxuj1q" path="res://Assets/UI/tecmon_frame.png" id="3_6aeki"]
+[ext_resource type="PackedScene" uid="uid://dc71oj1pdd6ct" path="res://Scenes/UI/tecmon_details.tscn" id="3_rsubf"]
+[ext_resource type="Texture2D" uid="uid://dk8c0bx0jrahc" path="res://Assets/Tecmons/ShadowSaint/ShadowSaint.png" id="4_rsubf"]
+
+[sub_resource type="Theme" id="Theme_awwja"]
+default_font = ExtResource("1_ygqyw")
+default_font_size = 8
+
+[node name="TecmonUI" type="Control" unique_id=1340260547]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_awwja")
+script = ExtResource("2_6aeki")
+details_template = ExtResource("3_rsubf")
+metadata/_edit_use_anchors_ = true
+
+[node name="BG" type="TextureRect" parent="." unique_id=1105908710]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xcssh")
+metadata/_edit_use_anchors_ = true
+
+[node name="TecmonDetailContainer" type="VBoxContainer" parent="." unique_id=532023957]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+custom_maximum_size = Vector2(-1, 144)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.475
+anchor_top = 0.05
+anchor_right = 0.975
+anchor_bottom = 0.95
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=788308765]
+custom_minimum_size = Vector2(70, 70)
+layout_mode = 0
+offset_left = 64.0
+offset_top = 8.0
+offset_right = 136.0
+offset_bottom = 80.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+texture = ExtResource("3_6aeki")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="TecmonSwapTexture" type="TextureRect" parent="NinePatchRect" unique_id=16209871]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+custom_maximum_size = Vector2(64, 64)
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 68.0
+offset_bottom = 68.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_rsubf")
+
+[node name="BackButton" type="Button" parent="." unique_id=1371067226]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 64.0
+offset_top = 136.0
+offset_right = 136.0
+offset_bottom = 152.0
+text = "back"
+
+[node name="TecmonDesc" type="RichTextLabel" parent="." unique_id=1743972141]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 40.0
+offset_top = 88.0
+offset_right = 136.0
+offset_bottom = 128.0
+text = "placholder"

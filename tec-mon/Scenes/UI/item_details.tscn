@@ -1,0 +1,110 @@
+[gd_scene format=3 uid="uid://h6mjwm3mjri7"]
+
+[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="1_8yw8x"]
+[ext_resource type="Script" uid="uid://bn6istgxbq3y4" path="res://Scripts/item_details.gd" id="2_q3cbb"]
+[ext_resource type="Texture2D" uid="uid://c382hen5x3oht" path="res://Assets/UI/MessageBox.png" id="3_h4hcq"]
+
+[sub_resource type="Theme" id="Theme_awwja"]
+default_font = ExtResource("1_8yw8x")
+default_font_size = 8
+
+[node name="ItemDetails" type="Button" unique_id=298499731]
+custom_minimum_size = Vector2(0, 12)
+anchors_preset = -1
+anchor_right = 0.35
+anchor_bottom = 0.075
+offset_bottom = -4.0
+theme = SubResource("Theme_awwja")
+script = ExtResource("2_q3cbb")
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=334342644]
+custom_maximum_size = Vector2(108, -1)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.017857177
+anchor_top = 0.083333336
+anchor_right = 0.98214287
+anchor_bottom = 1.0833334
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="ItemName" type="Label" parent="HBoxContainer" unique_id=907829333]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+text = "Item name"
+
+[node name="ItemCount" type="Label" parent="HBoxContainer" unique_id=1484346417]
+unique_name_in_owner = true
+layout_mode = 2
+text = "x99"
+horizontal_alignment = 2
+
+[node name="ItemOptions" type="CanvasLayer" parent="." unique_id=975917244]
+layer = 5
+
+[node name="Control" type="Control" parent="ItemOptions" unique_id=1435377020]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_awwja")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="NinePatchRect" parent="ItemOptions/Control" unique_id=2121352165]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_top = 0.425
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_vertical = 3
+texture = ExtResource("3_h4hcq")
+patch_margin_left = 7
+patch_margin_top = 7
+patch_margin_right = 7
+patch_margin_bottom = 7
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ItemOptions/Control/Panel" unique_id=1788093165]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.083333336
+anchor_top = 0.081845246
+anchor_right = 0.9166667
+anchor_bottom = 0.87351197
+offset_top = 0.1428566
+offset_bottom = 0.14285278
+metadata/_edit_use_anchors_ = true
+
+[node name="UseButton" type="Button" parent="ItemOptions/Control/Panel/VBoxContainer" unique_id=492632726]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Use"
+
+[node name="GiveButton" type="Button" parent="ItemOptions/Control/Panel/VBoxContainer" unique_id=1744558297]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Give"
+
+[node name="TossButton" type="Button" parent="ItemOptions/Control/Panel/VBoxContainer" unique_id=2139327725]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Toss"
+
+[node name="CancelButton" type="Button" parent="ItemOptions/Control/Panel/VBoxContainer" unique_id=1560896969]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Cancel"
+
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="ItemOptions/Control/Panel/VBoxContainer/UseButton" to="." method="_on_use_button_pressed"]
+[connection signal="pressed" from="ItemOptions/Control/Panel/VBoxContainer/GiveButton" to="." method="_on_give_button_pressed"]
+[connection signal="pressed" from="ItemOptions/Control/Panel/VBoxContainer/TossButton" to="." method="_on_toss_button_pressed"]
+[connection signal="pressed" from="ItemOptions/Control/Panel/VBoxContainer/CancelButton" to="." method="_on_cancel_button_pressed"]

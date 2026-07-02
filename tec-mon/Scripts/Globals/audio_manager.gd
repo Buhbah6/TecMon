@@ -20,10 +20,10 @@ func _ready() -> void:
 func play_music(stream: AudioStream, volume_db: float = 0.0) -> void:
 	if music_player.stream == stream and music_player.playing:
 		return
-
+	
 	music_player.stop()
 	music_player.stream = stream
-	music_player.volume_db = volume_db
+	music_player.volume_db = -30
 	music_player.play()
 	
 func stop_music() -> void:
@@ -60,7 +60,6 @@ func get_audio_stream(tag: String) -> SoundEffect:
 	else:
 		choice = matches.pick_random()
 	
-	# Remember what we just picked for this tag
 	last_played[tag] = choice
 	return choice
 	
@@ -82,8 +81,7 @@ func _get_free_sfx_player() -> AudioStreamPlayer:
 	for player in sfx_players:
 		if not player.playing:
 			return player
-
-	# Optional: steal the oldest/busiest player instead of dropping the sound
+	
 	return sfx_players[0]
 	
 func set_music_volume(value: float) -> void:
