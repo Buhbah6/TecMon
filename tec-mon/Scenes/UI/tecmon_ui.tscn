@@ -77,10 +77,10 @@ texture = ExtResource("4_rsubf")
 [node name="BackButton" type="Button" parent="." unique_id=1371067226]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 100.0
-offset_top = 12.0
-offset_right = 172.0
-offset_bottom = 28.0
+offset_left = 21.0
+offset_top = 133.0
+offset_right = 93.0
+offset_bottom = 149.0
 text = "back"
 
 [node name="TecmonDesc" type="RichTextLabel" parent="." unique_id=1743972141]

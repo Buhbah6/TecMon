@@ -49,13 +49,19 @@ grow_vertical = 2
 current_tab = 0
 
 [node name="TecMon" parent="BagUI/TabContainer" unique_id=1149035996 instance=ExtResource("5_pngul")]
+unique_name_in_owner = true
 layout_mode = 2
 metadata/_tab_index = 0
 
 [node name="BG" parent="BagUI/TabContainer/TecMon" index="0" unique_id=1105908710]
 visible = false
 
+[node name="BackButton" parent="BagUI/TabContainer/TecMon" index="3" unique_id=1371067226]
+visible = false
+disabled = true
+
 [node name="Items" parent="BagUI/TabContainer" unique_id=558686737 instance=ExtResource("6_e18be")]
+unique_name_in_owner = true
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
@@ -72,6 +78,7 @@ offset_bottom = 28.0
 scale = Vector2(0.6348904, 0.6114755)
 icon = ExtResource("6_7us8f")
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="BagUI/BackButton" to="." method="_on_back_button_pressed"]
 
 [editable path="BagUI/TabContainer/TecMon"]
