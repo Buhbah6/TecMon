@@ -52,6 +52,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 		_check_interaction()
 	elif Input.is_action_just_pressed("pause"):
 		_pause_game()
+	elif Input.is_action_just_pressed("inventory"):
+		_open_inventory()
 
 func _physics_process(delta: float) -> void:
 	process_input_stack()
@@ -287,4 +289,8 @@ func can_battle() -> bool:
 		if tecmon.current_hp != 0:
 			return true
 	return false
+
+func _open_inventory():
+	SceneManager.game_manager.get_child(6).show()
+	get_tree().paused = true
 			

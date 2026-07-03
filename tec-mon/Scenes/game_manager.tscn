@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cmnxmwbnkr0fm" path="res://Scenes/UI/battle_stage.tscn" id="3_mmt5l"]
 [ext_resource type="PackedScene" uid="uid://bmbcsa6wvn3gp" path="res://Scenes/UI/pause_menu.tscn" id="5_fgdfb"]
 [ext_resource type="PackedScene" uid="uid://ds8jy82d08ig4" path="res://Scenes/UI/options_menu.tscn" id="6_yqty0"]
+[ext_resource type="PackedScene" uid="uid://bdrhxfyik86l2" path="res://Scenes/UI/bag_ui.tscn" id="7_71d4j"]
 
 [node name="GameManager" type="Node" unique_id=818834755 groups=["GameManager"]]
 script = ExtResource("1_fgdfb")
@@ -22,3 +23,6 @@ layer = 2
 [node name="PauseMenu" parent="." unique_id=1122323117 instance=ExtResource("5_fgdfb")]
 
 [node name="OptionsMenu" parent="." unique_id=45860476 instance=ExtResource("6_yqty0")]
+
+[node name="BagUI" parent="." unique_id=1317549509 instance=ExtResource("7_71d4j")]
+process_mode = 2
