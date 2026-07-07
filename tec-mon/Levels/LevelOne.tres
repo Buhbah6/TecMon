@@ -2,6 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://cyv7s0kgyddj5" path="res://Assets/Sounds/Music/town1.wav" id="1_j2fmd"]
 [ext_resource type="Script" uid="uid://yrxlg1d3cmga" path="res://Resources/level_data.gd" id="1_tw162"]
+[ext_resource type="Resource" uid="uid://cox7nk3my2je" path="res://Levels/LevelTwo.tres" id="3_8xbps"]
 [ext_resource type="Resource" uid="uid://3a4e6ebwlj82" path="res://TecMons/shadow_saint.tres" id="3_73kwu"]
 [ext_resource type="Script" uid="uid://bbs0tueywqg6" path="res://Resources/encounter_entry.gd" id="3_j2fmd"]
 [ext_resource type="Script" uid="uid://bptt5i3weimhl" path="res://Resources/encounter_table.gd" id="3_unndw"]
@@ -24,4 +25,5 @@ bgm = ExtResource("1_j2fmd")
 has_encounters = true
 encounter_rate = 0.5
 grass_encounters = SubResource("Resource_ep8vc")
+connected_levels = Array[ExtResource("1_tw162")]([ExtResource("3_8xbps")])
 metadata/_custom_type_script = "uid://yrxlg1d3cmga"

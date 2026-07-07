@@ -30,6 +30,7 @@ Enums="*uid://ggemjhfhb2vl"
 AudioManager="*uid://0ake41i5j0at"
 BattleSystem="*uid://bj4os6rr2126s"
 TypeChart="*uid://ggf3pjfkrvh1"
+TilemapManager="*uid://dffk8pppnod3s"
 
 [display]
 

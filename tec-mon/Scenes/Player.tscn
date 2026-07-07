@@ -5,6 +5,7 @@
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bq1j6kh2ag4kd" path="res://Animations/IdleAnimationBlend2D.tres" id="3_dewec"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://cmg2jwqh63n5v" path="res://Animations/WalkingAnimationBlend2D.tres" id="3_gntrk"]
 [ext_resource type="AnimationNodeBlendSpace2D" uid="uid://bvlwjuaurwb12" path="res://Animations/RunningAnimationBlend2D.tres" id="4_5ixxa"]
+[ext_resource type="Script" uid="uid://bnqsjw74hjyt2" path="res://Scripts/player_camera.gd" id="6_nn08x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fuudy"]
 radius = 8.0
@@ -321,3 +322,5 @@ parameters/Running/blend_position = Vector2(0.0064020157, -0.031963468)
 parameters/Walking/blend_position = Vector2(-0.2581169, 0.08675802)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1231805677]
+editor_draw_limits = true
+script = ExtResource("6_nn08x")
