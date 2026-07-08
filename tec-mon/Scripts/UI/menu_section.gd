@@ -55,3 +55,7 @@ func _on_exit_button_pressed() -> void:
 
 func _on_button_mouse_entered() -> void:
 	AudioManager.play_sfx("select")
+
+
+func _on_credits_button_pressed() -> void:
+	get_node("%CreditsLayer").show()
