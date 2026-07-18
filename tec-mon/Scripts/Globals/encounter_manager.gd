@@ -6,7 +6,7 @@ func try_encounter(zone: String = "grass", force : bool = false) -> void:
 	if not Global.player.can_battle():
 		return
 		
-	var level := SceneManager.current_level
+	var level := SceneManager.current_level_data
 	if level == null or not level.has_encounters:
 		return
 
@@ -20,7 +20,6 @@ func try_encounter(zone: String = "grass", force : bool = false) -> void:
 	var instance : TecmonInstance = table._roll()
 	if instance:
 		encounter_started.emit(instance)
-
 
 func _get_table(level: LevelData, zone: String) -> EncounterTable:
 	match zone:

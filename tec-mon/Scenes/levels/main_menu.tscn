@@ -1,8 +1,6 @@
 [gd_scene format=3 uid="uid://p1turely2dsk"]
 
 [ext_resource type="Texture2D" uid="uid://ckctdindcldo3" path="res://Assets/UI/MainMenu/MainMenuBackground.png" id="1_l4et3"]
-[ext_resource type="Script" uid="uid://csiiq5rwq68q" path="res://Scripts/level.gd" id="1_sv7jc"]
-[ext_resource type="Resource" uid="uid://qntercaclsvu" path="res://Levels/MainMenu.tres" id="2_mtphh"]
 [ext_resource type="Texture2D" uid="uid://biksvx28e0gqs" path="res://Assets/UI/MainMenu/TempLogo.png" id="2_uahs1"]
 [ext_resource type="Script" uid="uid://c4aclg85ofe2k" path="res://Scripts/UI/menu_section.gd" id="4_457bt"]
 [ext_resource type="Theme" uid="uid://bpr41avimp173" path="res://Config/general_theme.tres" id="4_xqnlp"]
@@ -17,20 +15,34 @@ default_font_size = 11
 [sub_resource type="Theme" id="Theme_sv7jc"]
 default_font_size = 6
 
-[node name="MainMenu" type="Node2D" unique_id=1979623322]
-script = ExtResource("1_sv7jc")
-level_data = ExtResource("2_mtphh")
+[node name="MainMenu" type="Control" unique_id=68455251 node_paths=PackedStringArray("background")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_457bt")
+background = NodePath("Background")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1658278150]
 position = Vector2(182, 86.00001)
 scale = Vector2(0.23658855, 0.24027777)
 texture = ExtResource("1_l4et3")
 
-[node name="MenuLayer" type="CanvasLayer" parent="." unique_id=1236249007]
+[node name="MenuLayer" type="Control" parent="." unique_id=1281970306]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MenuSection" type="Control" parent="MenuLayer" unique_id=1557085423 node_paths=PackedStringArray("canvas_parent", "background")]
-layout_mode = 3
+[node name="MenuSection" type="Control" parent="MenuLayer" unique_id=1557085423]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -38,24 +50,25 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("4_xqnlp")
-script = ExtResource("4_457bt")
-canvas_parent = NodePath("..")
-background = NodePath("../../Background")
-bg_tween_time = 20.0
 
 [node name="NinePatchRect" type="NinePatchRect" parent="MenuLayer/MenuSection" unique_id=1020451328]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.325
-anchor_top = 0.4875
-anchor_right = 0.675
-anchor_bottom = 0.975
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -4.0
+offset_right = 52.0
+offset_bottom = 77.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("6_2m23o")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
-metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="MenuLayer/MenuSection" unique_id=119792590]
 custom_maximum_size = Vector2(128, 86)
@@ -115,24 +128,25 @@ text = "Exit"
 
 [node name="CreditsButton" type="Button" parent="MenuLayer/MenuSection" unique_id=880950757]
 layout_mode = 0
-offset_left = 285.0
-offset_top = 136.0
-offset_right = 314.0
-offset_bottom = 154.0
+offset_left = 124.0
+offset_top = 56.0
+offset_right = 153.0
+offset_bottom = 74.0
 focus_neighbor_left = NodePath("../VBoxContainer/ExitButton")
 theme = SubResource("Theme_sv7jc")
 text = "Credits"
 
 [node name="CreditsLayer" type="CanvasLayer" parent="." unique_id=1238885738]
 unique_name_in_owner = true
+layer = 21
 visible = false
 
 [node name="Credits" parent="CreditsLayer" unique_id=1191359209 instance=ExtResource("9_dk7ck")]
 
-[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="MenuLayer/MenuSection" method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="MenuLayer/MenuSection" method="_on_start_button_pressed"]
-[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/OptionsButton" to="MenuLayer/MenuSection" method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/OptionsButton" to="MenuLayer/MenuSection" method="_on_options_button_pressed"]
-[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/ExitButton" to="MenuLayer/MenuSection" method="_on_button_mouse_entered"]
-[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/ExitButton" to="MenuLayer/MenuSection" method="_on_exit_button_pressed"]
-[connection signal="pressed" from="MenuLayer/MenuSection/CreditsButton" to="MenuLayer/MenuSection" method="_on_credits_button_pressed"]
+[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
+[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/OptionsButton" to="." method="_on_options_button_mouse_entered"]
+[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/ExitButton" to="." method="_on_exit_button_mouse_entered"]
+[connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MenuLayer/MenuSection/CreditsButton" to="." method="_on_credits_button_pressed"]

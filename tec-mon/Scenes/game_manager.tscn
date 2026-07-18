@@ -11,18 +11,80 @@
 [node name="GameManager" type="Node" unique_id=818834755 groups=["GameManager"]]
 script = ExtResource("1_fgdfb")
 
-[node name="MainMenu" parent="." unique_id=1979623322 instance=ExtResource("2_mmt5l")]
+[node name="Systems" type="Node" parent="." unique_id=70315594]
 
-[node name="CurrentLevel" type="Node2D" parent="." unique_id=1607364168]
+[node name="World" type="Node2D" parent="." unique_id=1558559054]
+process_mode = 1
 
-[node name="MessageManager" parent="." unique_id=572602725 instance=ExtResource("1_oj352")]
-layer = 2
+[node name="LevelRoot" type="Node2D" parent="World" unique_id=1278659314]
+unique_name_in_owner = true
 
-[node name="BattleStage" parent="." unique_id=601046398 instance=ExtResource("3_mmt5l")]
+[node name="ContinousMenuLayer" type="CanvasLayer" parent="." unique_id=1474981163]
+layer = 5
 
-[node name="PauseMenu" parent="." unique_id=1122323117 instance=ExtResource("5_fgdfb")]
+[node name="MenuRoot" type="Control" parent="ContinousMenuLayer" unique_id=1294337094]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
-[node name="OptionsMenu" parent="." unique_id=45860476 instance=ExtResource("6_yqty0")]
+[node name="BattleStage" parent="ContinousMenuLayer/MenuRoot" unique_id=601046398 instance=ExtResource("3_mmt5l")]
+visible = false
+layout_mode = 1
+mouse_filter = 2
 
-[node name="BagUI" parent="." unique_id=1317549509 instance=ExtResource("7_71d4j")]
+[node name="HudLayer" type="CanvasLayer" parent="." unique_id=2120160927]
+process_mode = 1
+layer = 10
+
+[node name="HudRoot" type="Control" parent="HudLayer" unique_id=1160408093]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MessageManager" parent="HudLayer/HudRoot" unique_id=572602725 instance=ExtResource("1_oj352")]
+layout_mode = 1
+
+[node name="PauseLayer" type="CanvasLayer" parent="." unique_id=353138288]
 process_mode = 2
+layer = 20
+
+[node name="PauseRoot" type="Control" parent="PauseLayer" unique_id=1195279653]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenu" parent="PauseLayer/PauseRoot" unique_id=1979623322 instance=ExtResource("2_mmt5l")]
+unique_name_in_owner = true
+process_mode = 1
+visible = false
+layout_mode = 1
+mouse_filter = 2
+
+[node name="BagUI" parent="PauseLayer/PauseRoot" unique_id=1317549509 instance=ExtResource("7_71d4j")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="OptionsMenu" parent="PauseLayer/PauseRoot" unique_id=45860476 instance=ExtResource("6_yqty0")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+
+[node name="PauseMenu" parent="PauseLayer/PauseRoot" unique_id=1122323117 instance=ExtResource("5_fgdfb")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1

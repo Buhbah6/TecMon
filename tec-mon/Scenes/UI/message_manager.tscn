@@ -16,7 +16,13 @@ load_path = "res://.godot/imported/cursor3.png-0df17f6a09034bc98ab253bb361dd69f.
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_nli2m"]
 load_path = "res://.godot/imported/cursor2.png-067c70fce8d04033cec8d4153554e87e.ctex"
 
-[node name="MessageManager" type="CanvasLayer" unique_id=572602725 node_paths=PackedStringArray("box", "label")]
+[node name="MessageManager" type="Control" unique_id=1779269873 node_paths=PackedStringArray("box", "label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_tolam")
 box = NodePath("Container/NinePatchRect")
 label = NodePath("Container/NinePatchRect/RichTextLabel")
@@ -24,7 +30,7 @@ cursor_frames = Array[Texture2D]([SubResource("CompressedTexture2D_tolam"), SubR
 cursor_fps = 10.0
 
 [node name="Container" type="Control" parent="." unique_id=1475480154]
-layout_mode = 3
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

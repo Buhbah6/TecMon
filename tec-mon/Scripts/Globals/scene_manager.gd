@@ -2,34 +2,35 @@ extends CanvasLayer
 
 signal level_changed(level_data: LevelData)
 
-var current_level: LevelData = null
-var _is_changing: bool = false
-var color_rect: ColorRect
-var game_manager: Node
-var current_level_container: Node2D
+@export var player_scene: PackedScene
+@export var first_level_name: String = ""
+@export var transition_shader: Shader
+@export var mask_texture: Texture2D
+
+var current_level: Level
+var current_level_data: LevelData = null
+var level_container: Node2D
+var player: Player
+
 var _levels: Dictionary = {}
 var dir_path: String = "res://Levels/"
-var transition_shader: Shader = preload("res://Shaders/transition.gdshader")
-var mask_texture: Texture2D = preload("res://Assets/GreyScaleMasks/itec_logo.png")
+var _is_changing: bool = false
 
+@onready var color_rect: ColorRect = $ColorRect
 var _shader_material: ShaderMaterial
 
 func _ready() -> void:
 	_register_all()
-	layer = 100
-	color_rect = ColorRect.new()
-	color_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
-	color_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	color_rect.color = Color.BLACK
+	_shader_material = color_rect.material
+	_init_player()
 
-	_shader_material = ShaderMaterial.new()
-	_shader_material.shader = transition_shader
-	_shader_material.set_shader_parameter("mask_texture", mask_texture)
-	_shader_material.set_shader_parameter("luminance_cutoff", 1.0)  ## fully hidden at start
-
-	color_rect.material = _shader_material
-	color_rect.visible = false
-	add_child(color_rect)
+func _init_player() -> void:
+	if player_scene == null:
+		push_error("SceneManager: no player_scene assigned")
+		return
+	player = player_scene.instantiate() as Player
+	if player == null:
+		push_error("SceneManager: failed to instantiate player_scene")
 
 func _register_all() -> void:
 	var dir := DirAccess.open(dir_path)
@@ -57,29 +58,46 @@ func go_to(level_name: String) -> void:
 	if _is_changing:
 		return
 
+	if level_container == null:
+		push_error("SceneManager: level_container is not assigned yet")
+		return
+
 	var level_data := get_level(level_name)
 	if level_data == null:
-		push_error("Level not found: " + level_name)
+		push_error("SceneManager: level not found: " + level_name)
 		return
 
 	_is_changing = true
 	await _transition_out()
 
-	if current_level_container.get_child_count() > 0:
-		current_level_container.get_child(0).queue_free()
+	if current_level != null:
+		current_level.free()
+		current_level = null
+		await get_tree().process_frame
 
-	current_level = level_data
-	var level_path: String = current_level.scene_path
-	var level_scene: PackedScene = load(level_path)
-	var level_node: Level = level_scene.instantiate()
-	current_level_container.add_child(level_node)
+	var packed_level: PackedScene = ResourceLoader.load(level_data.scene_path, "PackedScene") as PackedScene
+	if packed_level == null:
+		push_error("SceneManager: failed to load level scene: " + level_data.scene_path)
+		_is_changing = false
+		return
 
+	current_level = packed_level.instantiate() as Level
+	level_container.add_child(current_level)
 	await get_tree().process_frame
+
+	current_level_data = level_data
+	_place_player_in_level()
 
 	level_changed.emit(level_data)
 
 	await _transition_in()
 	_is_changing = false
+
+func _place_player_in_level() -> void:
+	if player == null or current_level == null:
+		return
+	current_level.add_entity(player)
+	player.global_position = current_level.get_player_spawn()
 
 func _transition_out() -> void:
 	color_rect.visible = true
@@ -95,5 +113,3 @@ func _transition_in() -> void:
 
 func _set_cutoff(value: float) -> void:
 	_shader_material.set_shader_parameter("luminance_cutoff", value)
-	
-	

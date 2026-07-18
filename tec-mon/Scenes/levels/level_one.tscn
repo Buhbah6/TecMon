@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://bqklp8i7b2iel"]
 
-[ext_resource type="PackedScene" uid="uid://bcoetvek66gfo" path="res://Scenes/Player.tscn" id="1_0ba56"]
 [ext_resource type="Texture2D" uid="uid://2uaw1hjqj720" path="res://Assets/Sprout Lands - Sprites - Basic pack/Tilesets/Grass.png" id="1_vsvp5"]
 [ext_resource type="Script" uid="uid://csiiq5rwq68q" path="res://Scripts/level.gd" id="1_yb7v2"]
 [ext_resource type="Texture2D" uid="uid://c50cjm3nm73wj" path="res://Assets/Sprout Lands - Sprites - Basic pack/Tilesets/Tilled_Dirt_Wide.png" id="2_8rbpu"]
@@ -18,7 +17,6 @@
 [ext_resource type="Resource" uid="uid://dcw1l5pnyp66n" path="res://TecMons/schrodinger.tres" id="14_pwmok"]
 [ext_resource type="PackedScene" uid="uid://dp3ogqgrt0kxx" path="res://Scenes/heart.tscn" id="15_tixj0"]
 [ext_resource type="PackedScene" uid="uid://bjvjos3e0vm1k" path="res://Scenes/crate.tscn" id="18_pwmok"]
-[ext_resource type="PackedScene" uid="uid://bdrhxfyik86l2" path="res://Scenes/UI/bag_ui.tscn" id="19_d06kw"]
 [ext_resource type="PackedScene" uid="uid://crcne3girsskt" path="res://Scenes/developper_console.tscn" id="26_h6sio"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xylue"]
@@ -1302,7 +1300,8 @@ tile_map_data = PackedByteArray("AAD6/+7/AQAAAAAAAQD5/+7/AQAAAAAAAQD3/+7/AQAAAAA
 tile_set = SubResource("TileSet_hpu63")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1594744198]
-position = Vector2(16, -112)
+unique_name_in_owner = true
+position = Vector2(-128, -240)
 
 [node name="NPC" parent="." unique_id=105489987 instance=ExtResource("11_xn05h")]
 position = Vector2(0, -240)
@@ -1351,17 +1350,11 @@ item_amount = 5
 position = Vector2(81, -304)
 infinite = true
 
-[node name="Player" parent="." unique_id=1523655748 instance=ExtResource("1_0ba56")]
-position = Vector2(-128, -240)
-
 [node name="DevelopperConsole" parent="." unique_id=1758512668 instance=ExtResource("26_h6sio")]
 position = Vector2(-144, -240)
 
 [node name="Crate" parent="." unique_id=455141216 instance=ExtResource("18_pwmok")]
 position = Vector2(32, -256)
-
-[node name="BagUI" parent="." unique_id=1340260547 instance=ExtResource("19_d06kw")]
-visible = false
 
 [node name="Area2D" type="Area2D" parent="." unique_id=367452502]
 
@@ -1371,44 +1364,44 @@ shape = SubResource("RectangleShape2D_83sw6")
 
 [connection signal="body_entered" from="Tiles/TallGrassLayer/TallGrass" to="Tiles/TallGrassLayer/TallGrass" method="_on_body_entered"]
 [connection signal="body_exited" from="Tiles/TallGrassLayer/TallGrass" to="Tiles/TallGrassLayer/TallGrass" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92062" to="Tiles/TallGrassLayer/@Area2D@92062" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92062" to="Tiles/TallGrassLayer/@Area2D@92062" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92063" to="Tiles/TallGrassLayer/@Area2D@92063" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92063" to="Tiles/TallGrassLayer/@Area2D@92063" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92064" to="Tiles/TallGrassLayer/@Area2D@92064" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92064" to="Tiles/TallGrassLayer/@Area2D@92064" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92065" to="Tiles/TallGrassLayer/@Area2D@92065" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92065" to="Tiles/TallGrassLayer/@Area2D@92065" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92066" to="Tiles/TallGrassLayer/@Area2D@92066" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92066" to="Tiles/TallGrassLayer/@Area2D@92066" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92067" to="Tiles/TallGrassLayer/@Area2D@92067" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92067" to="Tiles/TallGrassLayer/@Area2D@92067" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92068" to="Tiles/TallGrassLayer/@Area2D@92068" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92068" to="Tiles/TallGrassLayer/@Area2D@92068" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92069" to="Tiles/TallGrassLayer/@Area2D@92069" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92069" to="Tiles/TallGrassLayer/@Area2D@92069" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92070" to="Tiles/TallGrassLayer/@Area2D@92070" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92070" to="Tiles/TallGrassLayer/@Area2D@92070" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92071" to="Tiles/TallGrassLayer/@Area2D@92071" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92071" to="Tiles/TallGrassLayer/@Area2D@92071" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92072" to="Tiles/TallGrassLayer/@Area2D@92072" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92072" to="Tiles/TallGrassLayer/@Area2D@92072" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92073" to="Tiles/TallGrassLayer/@Area2D@92073" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92073" to="Tiles/TallGrassLayer/@Area2D@92073" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92074" to="Tiles/TallGrassLayer/@Area2D@92074" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92074" to="Tiles/TallGrassLayer/@Area2D@92074" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92075" to="Tiles/TallGrassLayer/@Area2D@92075" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92075" to="Tiles/TallGrassLayer/@Area2D@92075" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92076" to="Tiles/TallGrassLayer/@Area2D@92076" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92076" to="Tiles/TallGrassLayer/@Area2D@92076" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92077" to="Tiles/TallGrassLayer/@Area2D@92077" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92077" to="Tiles/TallGrassLayer/@Area2D@92077" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92078" to="Tiles/TallGrassLayer/@Area2D@92078" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92078" to="Tiles/TallGrassLayer/@Area2D@92078" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92079" to="Tiles/TallGrassLayer/@Area2D@92079" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92079" to="Tiles/TallGrassLayer/@Area2D@92079" method="_on_body_exited"]
-[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@92080" to="Tiles/TallGrassLayer/@Area2D@92080" method="_on_body_entered"]
-[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@92080" to="Tiles/TallGrassLayer/@Area2D@92080" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175169" to="Tiles/TallGrassLayer/@Area2D@175169" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175169" to="Tiles/TallGrassLayer/@Area2D@175169" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175170" to="Tiles/TallGrassLayer/@Area2D@175170" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175170" to="Tiles/TallGrassLayer/@Area2D@175170" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175171" to="Tiles/TallGrassLayer/@Area2D@175171" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175171" to="Tiles/TallGrassLayer/@Area2D@175171" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175172" to="Tiles/TallGrassLayer/@Area2D@175172" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175172" to="Tiles/TallGrassLayer/@Area2D@175172" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175173" to="Tiles/TallGrassLayer/@Area2D@175173" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175173" to="Tiles/TallGrassLayer/@Area2D@175173" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175174" to="Tiles/TallGrassLayer/@Area2D@175174" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175174" to="Tiles/TallGrassLayer/@Area2D@175174" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175175" to="Tiles/TallGrassLayer/@Area2D@175175" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175175" to="Tiles/TallGrassLayer/@Area2D@175175" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175176" to="Tiles/TallGrassLayer/@Area2D@175176" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175176" to="Tiles/TallGrassLayer/@Area2D@175176" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175177" to="Tiles/TallGrassLayer/@Area2D@175177" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175177" to="Tiles/TallGrassLayer/@Area2D@175177" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175178" to="Tiles/TallGrassLayer/@Area2D@175178" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175178" to="Tiles/TallGrassLayer/@Area2D@175178" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175179" to="Tiles/TallGrassLayer/@Area2D@175179" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175179" to="Tiles/TallGrassLayer/@Area2D@175179" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175180" to="Tiles/TallGrassLayer/@Area2D@175180" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175180" to="Tiles/TallGrassLayer/@Area2D@175180" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175181" to="Tiles/TallGrassLayer/@Area2D@175181" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175181" to="Tiles/TallGrassLayer/@Area2D@175181" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175182" to="Tiles/TallGrassLayer/@Area2D@175182" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175182" to="Tiles/TallGrassLayer/@Area2D@175182" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175183" to="Tiles/TallGrassLayer/@Area2D@175183" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175183" to="Tiles/TallGrassLayer/@Area2D@175183" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175184" to="Tiles/TallGrassLayer/@Area2D@175184" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175184" to="Tiles/TallGrassLayer/@Area2D@175184" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175185" to="Tiles/TallGrassLayer/@Area2D@175185" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175185" to="Tiles/TallGrassLayer/@Area2D@175185" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175186" to="Tiles/TallGrassLayer/@Area2D@175186" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175186" to="Tiles/TallGrassLayer/@Area2D@175186" method="_on_body_exited"]
+[connection signal="body_entered" from="Tiles/TallGrassLayer/@Area2D@175187" to="Tiles/TallGrassLayer/@Area2D@175187" method="_on_body_entered"]
+[connection signal="body_exited" from="Tiles/TallGrassLayer/@Area2D@175187" to="Tiles/TallGrassLayer/@Area2D@175187" method="_on_body_exited"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 
 [editable path="NPC2"]

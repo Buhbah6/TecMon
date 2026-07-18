@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @onready var battle_ui: Control = %BattleUI
 
@@ -273,6 +273,6 @@ func _on_battle_ended(outcome: BattleSystem.BattleOutcome) -> void:
 	MessageBus._message_box.switch_mode()
 	await SceneManager._transition_out()
 	hide()
-	AudioManager.play_music(SceneManager.current_level.bgm)
+	AudioManager.play_music(SceneManager.current_level.level_data.bgm)
 	await SceneManager._transition_in()
 	BattleSystem.stage_closed.emit()

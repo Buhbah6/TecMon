@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 
 func _ready() -> void:
@@ -17,7 +17,7 @@ func _on_resume_button_pressed() -> void:
 
 func _on_main_menu_button_pressed() -> void:
 	_unpause()
-	SceneManager.go_to(Global.main_menu.level_name)
+	Global.game_manager.main_menu.show()
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
@@ -25,4 +25,4 @@ func _on_exit_button_pressed() -> void:
 
 func _on_options_button_pressed() -> void:
 	hide()
-	SceneManager.game_manager.get_child(5).show()
+	Global.game_manager.options_menu.show()
