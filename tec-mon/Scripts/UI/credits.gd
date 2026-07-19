@@ -10,7 +10,6 @@ extends Control
 var auto_scrolling: bool = false
 var scroll_amount: float = 0.0
 
-
 func _ready() -> void:
 	rich_text_label.bbcode_enabled = true
 	rich_text_label.fit_content = true

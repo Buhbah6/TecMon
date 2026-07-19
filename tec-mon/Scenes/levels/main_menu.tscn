@@ -16,6 +16,7 @@ default_font_size = 11
 default_font_size = 6
 
 [node name="MainMenu" type="Control" unique_id=68455251 node_paths=PackedStringArray("background")]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -143,6 +144,7 @@ visible = false
 
 [node name="Credits" parent="CreditsLayer" unique_id=1191359209 instance=ExtResource("9_dk7ck")]
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="pressed" from="MenuLayer/MenuSection/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="mouse_entered" from="MenuLayer/MenuSection/VBoxContainer/OptionsButton" to="." method="_on_options_button_mouse_entered"]

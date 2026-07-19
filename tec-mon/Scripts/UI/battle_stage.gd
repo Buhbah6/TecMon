@@ -32,6 +32,8 @@ extends Control
 var _bloom_material: ShaderMaterial
 @export var bloom_shader: Shader
 
+@export var battle_themes: Array[AudioStream]
+
 var can_input: bool = false
 var move_buttons: Array[Button]
 var action_buttons: Array[Button]
@@ -79,7 +81,7 @@ func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
 	BattleSystem.start_battle([enemy_instance], Global.player.tecmon_party, false)
 
 func _on_battle_started() -> void:
-	AudioManager.play_music(preload("res://Assets/Sounds/Music/battle_theme.wav"))
+	AudioManager.play_music(battle_themes.pick_random())
 	animation_player.play("idle")
 	_refresh_hp_bars()
 	new_turn()

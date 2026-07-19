@@ -6,6 +6,7 @@ extends Control
 @export var bg_move_amount: float = 40.0
 @export var bg_scale_amount: float = 0.15
 @export var bg_tween_time: float = 4.0
+@export var menu_song: AudioStream
 
 var _bg_start_position: Vector2
 var _bg_start_scale: Vector2
@@ -46,7 +47,9 @@ func _on_start_button_pressed() -> void:
 	hide()
 
 func _on_options_button_pressed() -> void:
-	Global.game_manager.options_menu.show()
+	var menu = Global.game_manager.options_menu
+	menu.show()
+	menu.from_pause_menu = false
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
@@ -65,3 +68,12 @@ func _on_options_button_mouse_entered() -> void:
 
 func _on_exit_button_mouse_entered() -> void:
 	pass # Replace with function body.
+
+func _on_visibility_changed() -> void:
+	if visible:
+		await get_tree().process_frame
+		get_tree().paused = true
+		AudioManager.play_music(menu_song)
+	else:
+		await get_tree().process_frame
+		get_tree().paused = false

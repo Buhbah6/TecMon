@@ -20,7 +20,7 @@ enum ScreenMode {
 @onready var music_slider: HSlider = %MusicVolSlider
 @onready var sfx_slider: HSlider = %SFXVolSlider
 
-var parent_scene : int
+var from_pause_menu : bool = false
 var current_res : Vector2i = RESOLUTIONS[0]
 
 func _ready() -> void:
@@ -50,17 +50,16 @@ func get_bus_volume(bus_name: String) -> float:
 
 func _on_back_button_pressed() -> void:
 	hide()
-	if parent_scene == 1:
+	if from_pause_menu == true:
 		Global.game_manager.pause_menu.show()
-	else:
-		get_tree().paused = false
 
 func _on_visibility_changed() -> void:
-	if visible and get_tree().paused:
-		parent_scene = 1
-	elif visible:
-		get_tree().paused = true
-		parent_scene = 2
+	pass
+	#if visible and get_tree().paused:
+		#from_pause_menu = 1
+	#elif visible:
+		#get_tree().paused = true
+		#from_pause_menu = 2
 
 func _on_resolution_dropdown_item_selected(index: int) -> void:
 	current_res = RESOLUTIONS[index]

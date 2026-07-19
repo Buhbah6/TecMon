@@ -20,5 +20,6 @@ func start_game():
 		await SceneManager.go_to(SceneManager.first_level_name)
 	else:
 		await SceneManager._transition_out()
+		AudioManager.play_music(SceneManager.current_level_data.bgm)
 		await SceneManager._transition_in()
 		

@@ -5,7 +5,7 @@ func _ready() -> void:
 	update_limits(TilemapManager.current_bounds)
 	pass
 	
-func update_limits(bounds: Array[Vector2]) -> void:
+func update_limits(bounds: Array[Vector2i]) -> void:
 	if bounds.is_empty():
 		return
 	limit_left = bounds[0].x

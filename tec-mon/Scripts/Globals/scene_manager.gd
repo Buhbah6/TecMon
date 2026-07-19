@@ -87,7 +87,7 @@ func go_to(level_name: String) -> void:
 
 	current_level_data = level_data
 	_place_player_in_level()
-
+	
 	level_changed.emit(level_data)
 
 	await _transition_in()
