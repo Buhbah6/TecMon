@@ -2,6 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c3wimhs8hxs4a" path="res://Assets/UI/option_button_disabled.png" id="1_enafr"]
 [ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="2_5ne6c"]
+[ext_resource type="Texture2D" uid="uid://ca2bstxkpp7r2" path="res://Assets/UI/toggled_button.png" id="2_k2bdg"]
+[ext_resource type="Texture2D" uid="uid://vtrvoe32h1ig" path="res://Assets/UI/toggle_button.png" id="2_ncsnv"]
+[ext_resource type="Texture2D" uid="uid://c25i0gsoj7njg" path="res://Assets/UI/h_slider.png" id="4_k2bdg"]
+[ext_resource type="Texture2D" uid="uid://p5h0ju2lrs6v" path="res://Assets/UI/slider_grabber.png" id="4_vexk8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_oykix"]
 texture = ExtResource("1_enafr")
@@ -29,12 +33,6 @@ texture_margin_left = 4.0
 texture_margin_top = 2.0
 texture_margin_right = 4.0
 texture_margin_bottom = 2.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_deree"]
-load_path = "res://.godot/imported/toggled_button.png-22aa7233e1ed7e207431bf00c2c80167.ctex"
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yq7um"]
-load_path = "res://.godot/imported/toggle_button.png-fd59f30cd97dd2d3097efc1424ad2d40.ctex"
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nqqw2"]
 
@@ -172,6 +170,34 @@ texture_margin_top = 3.0
 texture_margin_right = 5.0
 texture_margin_bottom = 3.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vexk8"]
+texture = ExtResource("4_vexk8")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mwh15"]
+texture = ExtResource("4_vexk8")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w4ewp"]
+texture = ExtResource("4_vexk8")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yvj1n"]
+texture = ExtResource("4_k2bdg")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
 [resource]
 default_font = ExtResource("2_5ne6c")
 default_font_size = 10
@@ -179,8 +205,8 @@ Button/styles/disabled = SubResource("StyleBoxTexture_oykix")
 Button/styles/hover = SubResource("StyleBoxTexture_702e2")
 Button/styles/normal = SubResource("StyleBoxTexture_23me3")
 Button/styles/pressed = SubResource("StyleBoxTexture_oykix")
-CheckButton/icons/checked = SubResource("CompressedTexture2D_deree")
-CheckButton/icons/unchecked = SubResource("CompressedTexture2D_yq7um")
+CheckButton/icons/checked = ExtResource("2_k2bdg")
+CheckButton/icons/unchecked = ExtResource("2_ncsnv")
 CheckButton/styles/disabled = SubResource("StyleBoxEmpty_nqqw2")
 CheckButton/styles/hover = SubResource("StyleBoxEmpty_hanoc")
 CheckButton/styles/normal = SubResource("StyleBoxEmpty_kxh81")
@@ -203,3 +229,7 @@ TabContainer/styles/panel = SubResource("StyleBoxEmpty_3r8q4")
 TabContainer/styles/tab_hovered = SubResource("StyleBoxTexture_v4asn")
 TabContainer/styles/tab_selected = SubResource("StyleBoxTexture_t5s47")
 TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_ecr2w")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_vexk8")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_mwh15")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_w4ewp")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_yvj1n")

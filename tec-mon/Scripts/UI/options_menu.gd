@@ -64,8 +64,15 @@ func _on_visibility_changed() -> void:
 func _on_resolution_dropdown_item_selected(index: int) -> void:
 	current_res = RESOLUTIONS[index]
 	DisplayServer.window_set_size(current_res)
-	var window_offset: Vector2i = current_res * 0.5
-	DisplayServer.window_set_position(DisplayServer.window_get_position() - window_offset)
+
+	var screen : int = DisplayServer.window_get_current_screen()
+	var screen_pos : Vector2i = DisplayServer.screen_get_position(screen)
+	var screen_size : Vector2i = DisplayServer.screen_get_size(screen)
+	var window_offset: Vector2i = (screen_size - current_res)
+	@warning_ignore("integer_division")
+	var window_position : Vector2i = screen_pos + (window_offset / 2)
+
+	DisplayServer.window_set_position(window_position)
 	
 	
 func _on_screen_mode_dropdown_item_selected(index: int) -> void:

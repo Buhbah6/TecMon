@@ -3,7 +3,7 @@ extends Control
 @export var credits_path: String = "res://credits.md"
 @export var scroll_speed: float = 35.0
 
-@onready var start_scroll_button: Button = %StartScrollButton
+@onready var start_scroll_button: TextureButton = %StartScrollButton
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
 
