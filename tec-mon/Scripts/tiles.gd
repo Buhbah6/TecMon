@@ -1,7 +1,7 @@
 extends Node2D
 
-
 func _ready() -> void:
+	print("updating bounds")
 	TilemapManager.change_bounds(get_bounds())
 	
 func get_bounds() -> Array[Vector2i]:

@@ -5,19 +5,23 @@
 [ext_resource type="Texture2D" uid="uid://o5sl6y6fse25" path="res://Assets/UI/Credits/hrhs.jpg" id="2_1g7ho"]
 [ext_resource type="Texture2D" uid="uid://dfy3y6747ehbl" path="res://Assets/UI/Credits/iTec1.png" id="3_yvj1n"]
 [ext_resource type="Texture2D" uid="uid://vfvmqmcma8h0" path="res://Assets/UI/scroll.png" id="4_i8gny"]
-[ext_resource type="Texture2D" uid="uid://d1v3nxc0io2ag" path="res://Assets/UI/MenuBox.png" id="4_kgcjs"]
+[ext_resource type="Texture2D" uid="uid://6dlr0w5wnn2i" path="res://Assets/UI/BrightPanelBox.png" id="4_kgcjs"]
 [ext_resource type="Texture2D" uid="uid://djmcu0gacsg7m" path="res://Assets/UI/X.png" id="5_kgcjs"]
 [ext_resource type="Texture2D" uid="uid://lr6k2jfkagf5" path="res://Assets/UI/scroll_pressed.png" id="6_i8gny"]
 [ext_resource type="Texture2D" uid="uid://0wb7udqj7h3o" path="res://Assets/UI/scroll_hovered.png" id="6_yvj1n"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n3rge"]
-bg_color = Color(0.17641944, 0.17641896, 0.17641908, 0.49019608)
+bg_color = Color(0.096204825, 0.09620472, 0.096204765, 0.49019608)
 
 [node name="Credits" type="Control" unique_id=1191359209]
 layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_1g7ho")
 script = ExtResource("1_k0d3f")
+h1_color = Color(0.30183333, 1, 0.29000002, 1)
+h2_color = Color(0.25520003, 0.88, 0.4738801, 1)
+h3_color = Color(0.39999998, 1, 0.6100001, 1)
+h4_color = Color(0.57, 1, 0.72050005, 1)
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1458734449]
 position = Vector2(158, 120)
@@ -32,7 +36,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_n3rge")
 
 [node name="Panel" type="NinePatchRect" parent="Panel" unique_id=381643836]
 layout_mode = 0
-offset_left = 232.0
+offset_left = 228.0
 offset_right = 321.0
 offset_bottom = 161.0
 texture = ExtResource("4_kgcjs")
@@ -43,9 +47,9 @@ patch_margin_bottom = 7
 
 [node name="iTecLogo" type="TextureRect" parent="Panel" unique_id=1749203774]
 layout_mode = 0
-offset_left = 240.0
+offset_left = 238.0
 offset_top = 7.0000005
-offset_right = 608.0
+offset_right = 606.0
 offset_bottom = 568.0
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_yvj1n")
@@ -53,10 +57,10 @@ stretch_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel" unique_id=1490326739]
 layout_mode = 0
-offset_left = 231.0
-offset_top = 122.0
-offset_right = 320.0
-offset_bottom = 154.0
+offset_left = 227.0
+offset_top = 119.0
+offset_right = 319.0
+offset_bottom = 151.0
 alignment = 1
 
 [node name="StartScrollButton" type="TextureButton" parent="Panel/HBoxContainer" unique_id=1480736316]
@@ -75,9 +79,9 @@ icon_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel" unique_id=1814434901]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 13.0
+offset_left = 6.0
 offset_top = 6.0
-offset_right = 228.0
+offset_right = 222.0
 offset_bottom = 149.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/ScrollContainer" unique_id=1606426316]

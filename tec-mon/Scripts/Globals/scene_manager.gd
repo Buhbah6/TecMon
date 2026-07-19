@@ -71,7 +71,7 @@ func go_to(level_name: String) -> void:
 	await _transition_out()
 
 	if current_level != null:
-		current_level.free()
+		current_level.queue_free()
 		current_level = null
 		await get_tree().process_frame
 
@@ -84,7 +84,7 @@ func go_to(level_name: String) -> void:
 	current_level = packed_level.instantiate() as Level
 	level_container.add_child(current_level)
 	await get_tree().process_frame
-
+	
 	current_level_data = level_data
 	_place_player_in_level()
 	

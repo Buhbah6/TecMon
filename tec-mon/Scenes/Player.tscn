@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bnqsjw74hjyt2" path="res://Scripts/player_camera.gd" id="6_nn08x"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fuudy"]
-radius = 8.0
+radius = 7.5
 
 [sub_resource type="Animation" id="Animation_dewec"]
 resource_name = "IdleDown"
@@ -287,7 +287,7 @@ states/Walking/position = Vector2(350, 187)
 transitions = ["Idle", "Walking", SubResource("AnimationNodeStateMachineTransition_gntrk"), "Walking", "Idle", SubResource("AnimationNodeStateMachineTransition_dewec"), "Start", "Walking", SubResource("AnimationNodeStateMachineTransition_5ixxa"), "Walking", "Running", SubResource("AnimationNodeStateMachineTransition_ksbbd"), "Running", "Walking", SubResource("AnimationNodeStateMachineTransition_glx4g"), "Idle", "Running", SubResource("AnimationNodeStateMachineTransition_nn08x"), "Running", "Idle", SubResource("AnimationNodeStateMachineTransition_52ee3")]
 
 [node name="Player" type="CharacterBody2D" unique_id=1523655748 node_paths=PackedStringArray("animation_tree") groups=["Player"]]
-y_sort_enabled = true
+z_index = 1
 collision_mask = 14
 script = ExtResource("1_kyqiw")
 tile_collision_layers = Array[int]([2, 3])
