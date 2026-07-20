@@ -4,9 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://bussxwbdfugjx" path="res://Scenes/UI/message_manager.tscn" id="1_oj352"]
 [ext_resource type="PackedScene" uid="uid://p1turely2dsk" path="res://Scenes/levels/main_menu.tscn" id="2_mmt5l"]
 [ext_resource type="PackedScene" uid="uid://cmnxmwbnkr0fm" path="res://Scenes/UI/battle_stage.tscn" id="3_mmt5l"]
+[ext_resource type="PackedScene" uid="uid://oljktyuhd5hx" path="res://Scenes/UI/dialogue_manager.tscn" id="4_efn8y"]
 [ext_resource type="PackedScene" uid="uid://bmbcsa6wvn3gp" path="res://Scenes/UI/pause_menu.tscn" id="5_fgdfb"]
+[ext_resource type="Texture2D" uid="uid://wb6v20s5nw0g" path="res://Assets/UI/cursor1.png" id="5_jencv"]
+[ext_resource type="Texture2D" uid="uid://bcw518hebo21l" path="res://Assets/UI/cursor2.png" id="6_kmrvs"]
 [ext_resource type="PackedScene" uid="uid://ds8jy82d08ig4" path="res://Scenes/UI/options_menu.tscn" id="6_yqty0"]
 [ext_resource type="PackedScene" uid="uid://bdrhxfyik86l2" path="res://Scenes/UI/bag_ui.tscn" id="7_71d4j"]
+[ext_resource type="Texture2D" uid="uid://ept37dovw6st" path="res://Assets/UI/cursor3.png" id="7_e6ru4"]
 
 [node name="GameManager" type="Node" unique_id=818834755 groups=["GameManager"]]
 script = ExtResource("1_fgdfb")
@@ -26,3 +30,6 @@ layer = 2
 
 [node name="BagUI" parent="." unique_id=1317549509 instance=ExtResource("7_71d4j")]
 process_mode = 2
+
+[node name="DialogueManager" parent="." unique_id=1804560817 instance=ExtResource("4_efn8y")]
+cursor_frames = Array[Texture2D]([ExtResource("5_jencv"), ExtResource("5_jencv"), ExtResource("6_kmrvs"), ExtResource("7_e6ru4")])

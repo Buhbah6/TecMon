@@ -3,6 +3,7 @@ extends CanvasLayer
 signal level_changed(level_data: LevelData)
 
 var current_level: LevelData = null
+var previous_level: LevelData = null
 var _is_changing: bool = false
 var color_rect: ColorRect
 var game_manager: Node
@@ -67,7 +68,8 @@ func go_to(level_name: String) -> void:
 
 	if current_level_container.get_child_count() > 0:
 		current_level_container.get_child(0).queue_free()
-
+		
+	previous_level = current_level
 	current_level = level_data
 	var level_path: String = current_level.scene_path
 	var level_scene: PackedScene = load(level_path)

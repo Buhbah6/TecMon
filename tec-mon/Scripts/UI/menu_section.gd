@@ -43,7 +43,7 @@ func _animate_background() -> void:
 
 func _on_start_button_pressed() -> void:
 	canvas_parent.hide()
-	SceneManager.go_to(Global.first_level.level_name)
+	SceneManager.go_to(get_parent().get_parent().level_data.connected_levels[0])
 
 func _on_options_button_pressed() -> void:
 	SceneManager.game_manager.get_child(5).show()

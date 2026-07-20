@@ -9,6 +9,7 @@ const STOPPING_DISTANCE_TILES : int = 1
 
 @export var npc_type: NPCTypes = NPCTypes.BATTLE
 @export var big_sprite: Texture2D
+@export var portrait_sprite: Sprite2D
 @export var party_data: Array[TecmonData] = []
 @export var tecmon_levels: Array[int] = []
 @export_multiline() var initial_dialog: Array[String] = []
@@ -73,12 +74,12 @@ func interact(player: Player) -> void:
 	if can_interact:
 		if interacted:
 			if not interacted_dialog.is_empty():
-				MessageBus.send(interacted_dialog)
+				MessageBus.send_dialogue(interacted_dialog, 30, portrait_sprite)
 		else:
 			interacted = true
 			if not initial_dialog.is_empty():
-				MessageBus.send(initial_dialog)
-			await MessageBus.message_box_closed
+				MessageBus.send_dialogue(initial_dialog, 30, portrait_sprite)
+			await MessageBus.dialogue_box_closed
 			Global.set_movement_blocked(true)
 			
 			match npc_type:
@@ -99,8 +100,8 @@ func start_battle(player: Player) -> void:
 func _on_battle_ended() -> void:
 	can_interact = true
 	if not end_dialog.is_empty():
-		MessageBus.send(end_dialog)
-		await MessageBus.message_box_closed
+		MessageBus.send_dialogue(end_dialog, 30, portrait_sprite)
+		await MessageBus.dialogue_box_closed
 	Global.set_movement_blocked(false)
 	
 func reset() -> void:
@@ -111,7 +112,7 @@ func reset() -> void:
 func give_item(player: Player):
 	player.inventory.add(item, item_amount)
 	if not end_dialog.is_empty():
-		MessageBus.send(end_dialog)
+		MessageBus.send_dialogue(end_dialog, 30, portrait_sprite)
 	Global.set_movement_blocked(false)
 	
 

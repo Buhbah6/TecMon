@@ -8,4 +8,5 @@ script = ExtResource("2_14bkm")
 level_name = "Main Menu"
 scene_path = "res://Scenes/levels/main_menu.tscn"
 bgm = ExtResource("1_7farf")
+connected_levels = Array[String](["Town One"])
 metadata/_custom_type_script = "uid://yrxlg1d3cmga"
