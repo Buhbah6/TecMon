@@ -22,6 +22,7 @@ var _shader_material: ShaderMaterial
 func _ready() -> void:
 	_register_all()
 	_shader_material = color_rect.material
+	_shader_material.set_shader_parameter("mask_texture", mask_texture)
 	_init_player()
 
 func _init_player() -> void:
@@ -68,13 +69,16 @@ func go_to(level_name: String) -> void:
 		return
 
 	_is_changing = true
+	if player != null:
+		Global.set_movement_blocked(true)
+		
 	await _transition_out()
 
 	if current_level != null:
 		current_level.queue_free()
 		current_level = null
 		await get_tree().process_frame
-
+	
 	var packed_level: PackedScene = ResourceLoader.load(level_data.scene_path, "PackedScene") as PackedScene
 	if packed_level == null:
 		push_error("SceneManager: failed to load level scene: " + level_data.scene_path)
@@ -91,6 +95,8 @@ func go_to(level_name: String) -> void:
 	level_changed.emit(level_data)
 
 	await _transition_in()
+	if player != null:
+		Global.set_movement_blocked(false)
 	_is_changing = false
 
 func _place_player_in_level() -> void:
@@ -102,12 +108,13 @@ func _place_player_in_level() -> void:
 func _transition_out() -> void:
 	color_rect.visible = true
 	var tween := create_tween()
-	tween.tween_method(_set_cutoff, 1.0, 0.0, 0.5)
+	tween.tween_method(_set_cutoff, 0.0, 0.999, 0.5)
 	await tween.finished
+	await get_tree().create_timer(0.5, true).timeout
 
 func _transition_in() -> void:
 	var tween := create_tween()
-	tween.tween_method(_set_cutoff, 0.0, 1.0, 0.5)
+	tween.tween_method(_set_cutoff, 0.999, 0.0, 0.5)
 	await tween.finished
 	color_rect.visible = false
 

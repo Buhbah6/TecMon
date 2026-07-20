@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://b2upxga7dcsbb" path="res://Scripts/Globals/scene_manager.gd" id="1_p6stl"]
 [ext_resource type="PackedScene" uid="uid://bcoetvek66gfo" path="res://Scenes/Player.tscn" id="2_r8a0f"]
 [ext_resource type="Shader" uid="uid://cdx7nyxr5xu7n" path="res://Shaders/transition.gdshader" id="3_451d1"]
-[ext_resource type="Texture2D" uid="uid://cdwqrpgjc43el" path="res://Assets/GreyScaleMasks/itec_logo.png" id="4_rwxuc"]
+[ext_resource type="Texture2D" uid="uid://do3r7kpdk5iu2" path="res://Assets/GreyScaleMasks/itec_logoV2.png" id="4_naiwj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_awwja"]
 shader = ExtResource("3_451d1")
-shader_parameter/luminance_cutoff = 0.9950000472625
-shader_parameter/invert = false
-shader_parameter/mask_texture = ExtResource("4_rwxuc")
+shader_parameter/luminance_cutoff = 0.9990000474525
+shader_parameter/invert = true
+shader_parameter/mask_texture = ExtResource("4_naiwj")
 
 [node name="SceneManager" type="CanvasLayer" unique_id=1814006526]
 process_mode = 3
@@ -18,7 +18,7 @@ script = ExtResource("1_p6stl")
 player_scene = ExtResource("2_r8a0f")
 first_level_name = "Town One"
 transition_shader = ExtResource("3_451d1")
-mask_texture = ExtResource("4_rwxuc")
+mask_texture = ExtResource("4_naiwj")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1356940785]
 visible = false
