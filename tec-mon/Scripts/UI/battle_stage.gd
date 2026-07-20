@@ -88,14 +88,14 @@ func _on_battle_started() -> void:
 	show()
 	await SceneManager._transition_in()
 	animation_player.play("tecmon_chosen")
-	player_sprite.show()
-	_play_chosen_flash(player_sprite)
 	
-func _play_chosen_flash(sprite: TextureRect) -> void:
+func _play_chosen_flash(sprite_number: int) -> void:
+	var sprite = player_sprite if sprite_number == 1 else enemy_sprite
+	
 	var mat := sprite.material as ShaderMaterial
 	mat.set_shader_parameter("bloomThreshold", 0.0)
 	mat.set_shader_parameter("bloomIntensity", 0.0)
-
+	
 	var tween := create_tween()
 	tween.tween_method(
 		func(v): mat.set_shader_parameter("bloomIntensity", v),
