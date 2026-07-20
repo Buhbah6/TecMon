@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 const RESOLUTIONS := [
 	Vector2i(320, 160),
@@ -16,13 +16,12 @@ enum ScreenMode {
 }
 
 @export var default_res: int = 3
-@export var master_slider: HSlider
-@export var music_slider: HSlider
-@export var sfx_slider: HSlider
+@onready var master_slider: HSlider = %MasterVolSlider
+@onready var music_slider: HSlider = %MusicVolSlider
+@onready var sfx_slider: HSlider = %SFXVolSlider
 
-var parent_scene : int
+var from_pause_menu : bool = false
 var current_res : Vector2i = RESOLUTIONS[0]
-
 
 func _ready() -> void:
 	hide()
@@ -51,21 +50,30 @@ func get_bus_volume(bus_name: String) -> float:
 
 func _on_back_button_pressed() -> void:
 	hide()
-	if parent_scene == 1:
-		SceneManager.game_manager.get_child(4).show()
-	else:
-		get_tree().paused = false
+	if from_pause_menu == true:
+		Global.game_manager.pause_menu.show()
 
 func _on_visibility_changed() -> void:
-	if visible and get_tree().paused:
-		parent_scene = 1
-	elif visible:
-		get_tree().paused = true
-		parent_scene = 2
+	pass
+	#if visible and get_tree().paused:
+		#from_pause_menu = 1
+	#elif visible:
+		#get_tree().paused = true
+		#from_pause_menu = 2
 
 func _on_resolution_dropdown_item_selected(index: int) -> void:
-	DisplayServer.window_set_size(RESOLUTIONS[index])
 	current_res = RESOLUTIONS[index]
+	DisplayServer.window_set_size(current_res)
+
+	var screen : int = DisplayServer.window_get_current_screen()
+	var screen_pos : Vector2i = DisplayServer.screen_get_position(screen)
+	var screen_size : Vector2i = DisplayServer.screen_get_size(screen)
+	var window_offset: Vector2i = (screen_size - current_res)
+	@warning_ignore("integer_division")
+	var window_position : Vector2i = screen_pos + (window_offset / 2)
+
+	DisplayServer.window_set_position(window_position)
+	
 	
 func _on_screen_mode_dropdown_item_selected(index: int) -> void:
 	match index:

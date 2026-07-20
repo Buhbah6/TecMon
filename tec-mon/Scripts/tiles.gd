@@ -1,10 +1,10 @@
 extends Node2D
 
-
 func _ready() -> void:
+	print("updating bounds")
 	TilemapManager.change_bounds(get_bounds())
 	
-func get_bounds() -> Array[Vector2]:
+func get_bounds() -> Array[Vector2i]:
 	var first := true
 	var combined_rect := Rect2i()
 	var reference_layer: TileMapLayer = null

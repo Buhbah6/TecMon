@@ -1,21 +1,22 @@
 extends Control
 
-@export var canvas_parent: CanvasLayer
 @export var background: Sprite2D
+@onready var credits_layer: CanvasLayer = %CreditsLayer
 
 @export var bg_move_amount: float = 40.0
 @export var bg_scale_amount: float = 0.15
 @export var bg_tween_time: float = 4.0
+@export var menu_song: AudioStream
 
 var _bg_start_position: Vector2
 var _bg_start_scale: Vector2
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-
+	
 	_bg_start_position = background.position
 	_bg_start_scale = background.scale
-
+	
 	_animate_background()
 
 func _animate_background() -> void:
@@ -42,20 +43,37 @@ func _animate_background() -> void:
 	_animate_background()
 
 func _on_start_button_pressed() -> void:
-	canvas_parent.hide()
-	SceneManager.go_to(get_parent().get_parent().level_data.connected_levels[0])
+	await Global.game_manager.start_game()
+	hide()
 
 func _on_options_button_pressed() -> void:
-	SceneManager.game_manager.get_child(5).show()
-
+	var menu = Global.game_manager.options_menu
+	menu.show()
+	menu.from_pause_menu = false
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
 
-
 func _on_button_mouse_entered() -> void:
 	AudioManager.play_sfx("select")
 
-
 func _on_credits_button_pressed() -> void:
-	get_node("%CreditsLayer").show()
+	credits_layer.show()
+
+func _on_start_button_mouse_entered() -> void:
+	pass # Replace with function body.
+
+func _on_options_button_mouse_entered() -> void:
+	pass # Replace with function body.
+
+func _on_exit_button_mouse_entered() -> void:
+	pass # Replace with function body.
+
+func _on_visibility_changed() -> void:
+	if visible:
+		await get_tree().process_frame
+		get_tree().paused = true
+		AudioManager.play_music(menu_song)
+	else:
+		await get_tree().process_frame
+		get_tree().paused = false

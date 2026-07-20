@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @onready var battle_ui: Control = %BattleUI
 
@@ -31,6 +31,8 @@ extends CanvasLayer
 
 var _bloom_material: ShaderMaterial
 @export var bloom_shader: Shader
+
+@export var battle_themes: Array[AudioStream]
 
 var can_input: bool = false
 var move_buttons: Array[Button]
@@ -79,21 +81,21 @@ func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
 	BattleSystem.start_battle([enemy_instance], Global.player.tecmon_party, false)
 
 func _on_battle_started() -> void:
-	AudioManager.play_music(preload("res://Assets/Sounds/Music/battle_theme.wav"))
+	AudioManager.play_music(battle_themes.pick_random())
 	animation_player.play("idle")
 	_refresh_hp_bars()
 	new_turn()
 	show()
 	await SceneManager._transition_in()
 	animation_player.play("tecmon_chosen")
-	player_sprite.show()
-	_play_chosen_flash(player_sprite)
 	
-func _play_chosen_flash(sprite: TextureRect) -> void:
+func _play_chosen_flash(sprite_number: int) -> void:
+	var sprite = player_sprite if sprite_number == 1 else enemy_sprite
+	
 	var mat := sprite.material as ShaderMaterial
 	mat.set_shader_parameter("bloomThreshold", 0.0)
 	mat.set_shader_parameter("bloomIntensity", 0.0)
-
+	
 	var tween := create_tween()
 	tween.tween_method(
 		func(v): mat.set_shader_parameter("bloomIntensity", v),
@@ -273,6 +275,6 @@ func _on_battle_ended(outcome: BattleSystem.BattleOutcome) -> void:
 	MessageBus._message_box.switch_mode()
 	await SceneManager._transition_out()
 	hide()
-	AudioManager.play_music(SceneManager.current_level.bgm)
+	AudioManager.play_music(SceneManager.current_level.level_data.bgm)
 	await SceneManager._transition_in()
 	BattleSystem.stage_closed.emit()

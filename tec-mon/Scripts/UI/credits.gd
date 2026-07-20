@@ -1,15 +1,20 @@
 extends Control
 
+@export_category("Credit Colors")
+@export var h1_color: Color = Color("#115c2b")
+@export var h2_color: Color = Color("#209649")
+@export var h3_color: Color = Color("#0fbf4d")
+@export var h4_color: Color = Color("#40f57f")
+
 @export var credits_path: String = "res://credits.md"
 @export var scroll_speed: float = 35.0
 
-@onready var start_scroll_button: Button = %StartScrollButton
+@onready var start_scroll_button: TextureButton = %StartScrollButton
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var rich_text_label: RichTextLabel = %RichTextLabel
 
 var auto_scrolling: bool = false
 var scroll_amount: float = 0.0
-
 
 func _ready() -> void:
 	rich_text_label.bbcode_enabled = true
@@ -77,6 +82,8 @@ func _on_user_input(event: InputEvent) -> void:
 	elif event is InputEventScreenDrag:
 		_pause_auto_scroll()
 
+func color_to_hex(color: Color) -> String:
+	return color.to_html(false)
 
 func markdown_to_bbcode(markdown: String) -> String:
 	var lines := markdown.replace("\r\n", "\n").split("\n")
@@ -118,15 +125,28 @@ func markdown_to_bbcode(markdown: String) -> String:
 			if in_quote:
 				result.append("[/i][/indent]")
 				in_quote = false
-
+				
 		if line.begins_with("#### "):
-			result.append("[font_size=8][color=#40f57f][b]" + markdown_inline_to_bbcode(line.substr(5)) + "[/b][/color][/font_size]")
+			result.append("[font_size=8][color=#%s][b]%s[/b][/color][/font_size]" % [
+				color_to_hex(h4_color),
+				markdown_inline_to_bbcode(line.substr(5))
+			])
 		elif line.begins_with("### "):
-			result.append("[font_size=10][color=#0fbf4d][b]" + markdown_inline_to_bbcode(line.substr(4)) + "[/b][/color][/font_size]")
+			result.append("[font_size=10][color=#%s][b]%s[/b][/color][/font_size]" % [
+				color_to_hex(h3_color),
+				markdown_inline_to_bbcode(line.substr(4))
+			])
 		elif line.begins_with("## "):
-			result.append("[font_size=12][color=#209649][b]" + markdown_inline_to_bbcode(line.substr(3)) + "[/b][/color][/font_size]")
+			result.append("[font_size=12][color=#%s][b]%s[/b][/color][/font_size]" % [
+				color_to_hex(h2_color),
+				markdown_inline_to_bbcode(line.substr(3))
+			])
 		elif line.begins_with("# "):
-			result.append("[font_size=14][color=#115c2b][b]" + markdown_inline_to_bbcode(line.substr(2)) + "[/b][/color][/font_size]")
+			result.append("[font_size=14][color=#%s][b]%s[/b][/color][/font_size]" % [
+				color_to_hex(h1_color),
+				markdown_inline_to_bbcode(line.substr(2))
+			])
+			
 		elif line.begins_with("- "):
 			result.append("• " + markdown_inline_to_bbcode(line.substr(2)))
 		elif line.begins_with("* "):

@@ -1,4 +1,7 @@
-extends CanvasLayer
+extends Control
+
+@onready var tec_mon: Control = %TecMon
+@onready var items: Control = %Items
 
 func _ready() -> void:
 	hide()
@@ -9,5 +12,5 @@ func _on_back_button_pressed() -> void:
 
 func _on_visibility_changed() -> void:
 	if visible:
-		get_node("%TecMon")._populate()
-		get_node("%Items")._populate()
+		tec_mon._populate()
+		items._populate()

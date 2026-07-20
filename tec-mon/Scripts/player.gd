@@ -281,7 +281,7 @@ func update_animation() -> void:
 	animation_tree.set("parameters/conditions/Running", moving and is_running)
 
 func _pause_game() -> void:
-	SceneManager.game_manager.get_child(4).visible = true
+	Global.game_manager.pause_menu.visible = true
 	get_tree().paused = true
 	
 func can_battle() -> bool:
@@ -291,6 +291,6 @@ func can_battle() -> bool:
 	return false
 
 func _open_inventory():
-	SceneManager.game_manager.get_child(6).show()
+	Global.game_manager.bag_ui.show()
 	get_tree().paused = true
 			
