@@ -34,7 +34,8 @@ Also, huge thanks to the iTec team for all the work that goes into the program.
 
 	- Daniel Carbonneau
 	- Landon Baddeley
-
+	- Maxime Rioux
+	
 ## Audio Credits
 
 ### Sound Effects
@@ -74,9 +75,6 @@ Also, huge thanks to the iTec team for all the work that goes into the program.
 	- Source: https://freesound.org/people/LilMati/sounds/523654/
 
 ### Music
-
-#### iTec Contributors
-
 - Battle Theme 1
 	- Artist: Adam Dupuis (iTec Student)
 	- Title: TecMon Battle

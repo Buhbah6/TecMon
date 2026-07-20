@@ -1,4 +1,4 @@
-extends CanvasLayer
+extends Control
 
 @export_category("Components")
 @export var box: NinePatchRect

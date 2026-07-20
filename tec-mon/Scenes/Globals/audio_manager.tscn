@@ -62,5 +62,6 @@ audio_stream = ExtResource("8_hfdkt")
 metadata/_custom_type_script = "uid://dwyly40ou0pls"
 
 [node name="AudioManager" type="Node" unique_id=560959834]
+process_mode = 3
 script = ExtResource("1_a6cw8")
 sfx_pool = Array[ExtResource("3_88uku")]([SubResource("Resource_a6cw8"), SubResource("Resource_rusht"), SubResource("Resource_o68qb"), SubResource("Resource_88uku"), SubResource("Resource_tolam"), SubResource("Resource_v1en5"), SubResource("Resource_jgxw8")])

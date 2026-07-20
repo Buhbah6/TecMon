@@ -6,6 +6,10 @@ var main_menu: LevelData = preload("res://Levels/MainMenu.tres")
 var first_level: LevelData = preload("res://Levels/LevelOne.tres")
 var shiny_odds: float = 0.00025 #Roughly 1/4096
 var player: Player
+var game_manager: MainGame
+
+func register_game_manager(node: MainGame):
+	game_manager = node
 
 func register_player(node: Player):
 	player = node
