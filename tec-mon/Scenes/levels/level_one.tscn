@@ -1300,8 +1300,10 @@ tile_map_data = PackedByteArray("AAD6/+7/AQAAAAAAAQD5/+7/AQAAAAAAAQD3/+7/AQAAAAA
 tile_set = SubResource("TileSet_hpu63")
 
 [node name="SpawnPoint" type="Marker2D" parent="." unique_id=1594744198]
-unique_name_in_owner = true
-position = Vector2(-128, -240)
+position = Vector2(-115, -232)
+
+[node name="SpawnPoint2" type="Marker2D" parent="." unique_id=2010463435]
+position = Vector2(31, 298)
 
 [node name="NPC" parent="." unique_id=105489987 instance=ExtResource("11_xn05h")]
 position = Vector2(0, -240)
@@ -1321,6 +1323,9 @@ interacted_dialog = Array[String](["We already fought remember?"])
 [node name="NPC" parent="NPC2" index="1" unique_id=1357419899]
 region_rect = Rect2(112, 0, 48, 84)
 
+[node name="PortraitSprite" parent="NPC2" index="4" unique_id=1066070350]
+region_rect = Rect2(523, 8, 42, 56)
+
 [node name="NPC3" parent="." unique_id=456132779 instance=ExtResource("11_xn05h")]
 position = Vector2(192, -288)
 party_data = Array[ExtResource("12_vxkfs")]([ExtResource("13_tixj0"), ExtResource("14_pwmok")])
@@ -1334,6 +1339,9 @@ can_chase = true
 [node name="NPC" parent="NPC3" index="1" unique_id=1357419899]
 frame = 4
 region_rect = Rect2(224, 105, 48, 84)
+
+[node name="PortraitSprite" parent="NPC3" index="4" unique_id=1066070350]
+region_rect = Rect2(585, 66, 42, 62)
 
 [node name="Chest" parent="." unique_id=1091976237 instance=ExtResource("8_vxkfs")]
 position = Vector2(0, -224)

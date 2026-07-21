@@ -17,4 +17,4 @@ extends Resource
 @export var cave_encounters: EncounterTable
 
 @export_category("Connections")
-@export var connected_levels: Array[LevelData] = []  # level_names this connects to
+@export var connected_levels: Array[String] = []  # level_names this connects to

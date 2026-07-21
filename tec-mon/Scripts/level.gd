@@ -28,4 +28,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if level_data.connected_levels.is_empty():
 			push_warning("Level: exit triggered but level_data.connected_levels is empty")
 			return
-		SceneManager.go_to(level_data.connected_levels[0].level_name)
+		SceneManager.go_to(level_data.connected_levels[0])
