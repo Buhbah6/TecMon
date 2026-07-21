@@ -6,19 +6,27 @@
 [ext_resource type="Texture2D" uid="uid://bwebovny3j8b8" path="res://Assets/UI/PortraitBox.png" id="4_5yn7y"]
 [ext_resource type="Texture2D" uid="uid://7c6x878jski6" path="res://Assets/Characters/ForestNpcs.png" id="5_vyoup"]
 
-[node name="DialogueManager" type="CanvasLayer" unique_id=572602725 node_paths=PackedStringArray("box", "label", "sprite")]
-script = ExtResource("1_vyoup")
-box = NodePath("Container/NinePatchRect")
-label = NodePath("Container/NinePatchRect/RichTextLabel")
-sprite = NodePath("Container/NinePatchRect2/Portrait")
-
-[node name="Container" type="Control" parent="." unique_id=1475480154]
+[node name="DialogueManager" type="Control" unique_id=868713976 node_paths=PackedStringArray("box", "label", "sprite")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_vyoup")
+box = NodePath("Container/NinePatchRect")
+label = NodePath("Container/NinePatchRect/RichTextLabel")
+sprite = NodePath("Container/NinePatchRect2/Portrait")
+
+[node name="Container" type="Control" parent="." unique_id=1475480154]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Container" unique_id=1139521266]

@@ -58,6 +58,10 @@ mouse_filter = 2
 [node name="MessageManager" parent="HudLayer/HudRoot" unique_id=572602725 instance=ExtResource("1_oj352")]
 layout_mode = 1
 
+[node name="DialogueManager" parent="HudLayer/HudRoot" unique_id=1804560817 instance=ExtResource("4_efn8y")]
+layout_mode = 1
+cursor_frames = Array[Texture2D]([ExtResource("5_jencv"), ExtResource("5_jencv"), ExtResource("6_kmrvs"), ExtResource("7_e6ru4")])
+
 [node name="PauseLayer" type="CanvasLayer" parent="." unique_id=353138288]
 process_mode = 2
 
@@ -91,7 +95,3 @@ layout_mode = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
-
-[node name="DialogueManager" parent="." unique_id=1804560817 instance=ExtResource("4_efn8y")]
-layer = 20
-cursor_frames = Array[Texture2D]([ExtResource("5_jencv"), ExtResource("5_jencv"), ExtResource("6_kmrvs"), ExtResource("7_e6ru4")])
