@@ -27,7 +27,7 @@ script = ExtResource("4_457bt")
 background = NodePath("Background")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1658278150]
-position = Vector2(160, 86)
+position = Vector2(160, 80)
 scale = Vector2(0.23658855, 0.24027777)
 texture = ExtResource("1_l4et3")
 
