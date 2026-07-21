@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://jf1xrasv85op" path="res://Assets/UI/tecmon_menu.png" id="2_xcssh"]
 [ext_resource type="Texture2D" uid="uid://dl3hbw0qxuj1q" path="res://Assets/UI/tecmon_frame.png" id="3_6aeki"]
 [ext_resource type="PackedScene" uid="uid://dc71oj1pdd6ct" path="res://Scenes/UI/tecmon_details.tscn" id="3_rsubf"]
-[ext_resource type="Texture2D" uid="uid://dk8c0bx0jrahc" path="res://Assets/Tecmons/ShadowSaint/ShadowSaint.png" id="4_rsubf"]
 
 [sub_resource type="Theme" id="Theme_awwja"]
 default_font = ExtResource("1_ygqyw")
@@ -72,7 +71,6 @@ offset_right = 68.0
 offset_bottom = 68.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("4_rsubf")
 
 [node name="BackButton" type="Button" parent="." unique_id=1371067226]
 unique_name_in_owner = true
@@ -81,7 +79,7 @@ offset_left = 21.0
 offset_top = 133.0
 offset_right = 93.0
 offset_bottom = 149.0
-text = "back"
+text = "Back"
 
 [node name="TecmonDesc" type="RichTextLabel" parent="." unique_id=1743972141]
 unique_name_in_owner = true
@@ -90,4 +88,4 @@ offset_left = 24.0
 offset_top = 84.0
 offset_right = 120.0
 offset_bottom = 124.0
-text = "placholder"
+text = "No Tecmons"

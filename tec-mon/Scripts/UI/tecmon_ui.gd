@@ -46,6 +46,9 @@ func _on_tecmon_selected(idx: int) -> void:
 	tecmon_selected.emit(idx)
 
 func _on_tecmon_hovered(idx: int) -> void:
+	var party : Array[TecmonInstance] = Global.player.tecmon_party
+	if party.size() <= 0:
+		return
 	var tecmon := Global.player.tecmon_party[idx]
 	swap_texture.texture = tecmon.data.front_sprite
 

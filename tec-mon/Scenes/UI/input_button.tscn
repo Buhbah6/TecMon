@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ccyxhep6t4ibn"]
+
+[ext_resource type="Script" uid="uid://dioxhqtj21afn" path="res://Scripts/UI/input_button.gd" id="1_ee6dt"]
+
+[node name="HBoxContainer" type="HBoxContainer" unique_id=54490553]
+script = ExtResource("1_ee6dt")
+
+[node name="ActionName" type="Label" parent="." unique_id=311784512]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Up"
+
+[node name="Button" type="Button" parent="." unique_id=967766981]
+layout_mode = 2
+size_flags_horizontal = 3
