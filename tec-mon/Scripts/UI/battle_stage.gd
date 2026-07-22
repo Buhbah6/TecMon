@@ -82,12 +82,13 @@ func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
 
 func _on_battle_started() -> void:
 	AudioManager.play_music(battle_themes.pick_random())
-	animation_player.play("idle")
 	_refresh_hp_bars()
 	new_turn()
 	show()
 	await SceneManager._transition_in()
 	animation_player.play("tecmon_chosen")
+	await animation_player.animation_finished
+	animation_player.play("idle")
 	
 func _play_chosen_flash(sprite_number: int) -> void:
 	var sprite = player_sprite if sprite_number == 1 else enemy_sprite
@@ -204,20 +205,26 @@ func _close_sub_ui() -> void:
 
 func _on_tecmon_switched(index: int) -> void:
 	var current_index := BattleSystem.player_participant.party.find(BattleSystem.player_participant.current_mon)
+	MessageBus._message_box._clear_passive()
 	if index == current_index and not force_switch:
 		_close_sub_ui()
 		await _say("That Tecmon is already sent out")
-		MessageBus.send_passive("What will " + BattleSystem.player_participant.display_name() + " do?")
 		return
 		
 	BattleSystem.player_participant.switch_to(index)
 	_refresh_hp_bars()
 	_close_sub_ui()
+	player_sprite.hide()
+	animation_player.play("tecmon_chosen")
 	await _say("You sent out " + BattleSystem.player_participant.display_name() + "!")
-
+	if animation_player.is_playing():
+		await animation_player.animation_finished
+	animation_player.play("idle")
+	
 	if not force_switch:
+		print("calling skip_turn, phase = ", BattleSystem.phase)
 		BattleSystem.skip_turn()
-
+	
 	is_switching = false
 	force_switch = false
 	MessageBus.send_passive("What will " + BattleSystem.player_participant.display_name() + " do?")

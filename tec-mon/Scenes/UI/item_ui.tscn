@@ -233,10 +233,10 @@ metadata/_edit_use_anchors_ = true
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=1746583293]
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 0
-offset_left = 24.0
-offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 80.0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 84.0
+offset_bottom = 84.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_bf75p")
 patch_margin_left = 4
@@ -268,16 +268,16 @@ text = "back"
 [node name="ItemDesc" type="RichTextLabel" parent="." unique_id=1639257287]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 24.0
-offset_top = 84.0
-offset_right = 140.0
-offset_bottom = 152.0
+offset_left = 12.0
+offset_top = 88.0
+offset_right = 128.0
+offset_bottom = 148.0
 text = "placholder"
 
 [node name="TabContainer" type="TabContainer" parent="." unique_id=1803161190]
 layout_mode = 0
 offset_left = 148.0
-offset_top = 8.0
+offset_top = 12.0
 offset_right = 308.0
 offset_bottom = 48.0
 tab_alignment = 1

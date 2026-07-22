@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://jf1xrasv85op" path="res://Assets/UI/tecmon_menu.png" id="2_xcssh"]
 [ext_resource type="Texture2D" uid="uid://dl3hbw0qxuj1q" path="res://Assets/UI/tecmon_frame.png" id="3_6aeki"]
 [ext_resource type="PackedScene" uid="uid://dc71oj1pdd6ct" path="res://Scenes/UI/tecmon_details.tscn" id="3_rsubf"]
+[ext_resource type="Texture2D" uid="uid://daq1hfl0vv2rd" path="res://Assets/UI/tecmon_fainted_frame.png" id="5_6aeki"]
 
 [sub_resource type="Theme" id="Theme_awwja"]
 default_font = ExtResource("1_ygqyw")
@@ -20,6 +21,8 @@ grow_vertical = 2
 theme = SubResource("Theme_awwja")
 script = ExtResource("2_6aeki")
 details_template = ExtResource("3_rsubf")
+alive_bg = ExtResource("3_6aeki")
+dead_bg = ExtResource("5_6aeki")
 metadata/_edit_use_anchors_ = true
 
 [node name="BG" type="TextureRect" parent="." unique_id=1105908710]
@@ -34,25 +37,26 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TecmonDetailContainer" type="VBoxContainer" parent="." unique_id=532023957]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-custom_maximum_size = Vector2(-1, 144)
+custom_minimum_size = Vector2(0, 124)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.475
-anchor_top = 0.05
-anchor_right = 0.975
-anchor_bottom = 0.95
+anchor_top = 0.15
+anchor_right = 0.9625
+anchor_bottom = 0.925
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=788308765]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 0
-offset_left = 24.0
-offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 80.0
+offset_left = 12.0
+offset_top = 20.0
+offset_right = 84.0
+offset_bottom = 92.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_6aeki")
 patch_margin_left = 4
@@ -74,18 +78,35 @@ size_flags_vertical = 4
 
 [node name="BackButton" type="Button" parent="." unique_id=1371067226]
 unique_name_in_owner = true
+custom_maximum_size = Vector2(-1, 8)
 layout_mode = 0
-offset_left = 21.0
-offset_top = 133.0
-offset_right = 93.0
-offset_bottom = 149.0
+offset_left = 236.0
+offset_top = 12.0
+offset_right = 308.0
+offset_bottom = 20.0
 text = "Back"
 
 [node name="TecmonDesc" type="RichTextLabel" parent="." unique_id=1743972141]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 24.0
-offset_top = 84.0
-offset_right = 120.0
-offset_bottom = 124.0
+offset_left = 12.0
+offset_top = 96.0
+offset_right = 128.0
+offset_bottom = 148.0
 text = "No Tecmons"
+
+[node name="Party" type="Label" parent="." unique_id=1783265397]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 12.0
+offset_right = 209.0
+offset_bottom = 20.0
+text = "Tecmon Party"
+
+[node name="Current" type="Label" parent="." unique_id=1892863832]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 78.0
+offset_bottom = 20.0
+text = "Current Tecmon:"

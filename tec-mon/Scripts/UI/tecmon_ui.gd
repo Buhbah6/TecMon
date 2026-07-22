@@ -7,8 +7,11 @@ signal back_pressed
 @onready var swap_texture: TextureRect = %TecmonSwapTexture
 @onready var desc: RichTextLabel = %TecmonDesc
 @onready var back_button: Button = %BackButton
+@onready var nine_patch_rect: NinePatchRect = %NinePatchRect
 
 @export var details_template: PackedScene
+@export var alive_bg: Texture2D
+@export var dead_bg: Texture2D
 
 var force_switch: bool = false
 
@@ -26,7 +29,13 @@ func _populate() -> void:
 	for child in detail_container.get_children():
 		child.queue_free()
 
-	for tecmon: TecmonInstance in Global.player.tecmon_party:
+	var party: Array[TecmonInstance] = Global.player.tecmon_party.duplicate()
+	var current: TecmonInstance = BattleSystem.player_participant.current_mon
+	party.erase(current)
+
+	_show_tecmon(current)
+
+	for tecmon: TecmonInstance in party:
 		var idx := Global.player.tecmon_party.find(tecmon)
 		var details = details_template.instantiate()
 		details.idx = idx
@@ -40,22 +49,26 @@ func _populate() -> void:
 		details.selected.connect(_on_tecmon_selected)
 		details.hovered.connect(_on_tecmon_hovered)
 
-	_on_tecmon_hovered(0)
-
 func _on_tecmon_selected(idx: int) -> void:
 	tecmon_selected.emit(idx)
 
 func _on_tecmon_hovered(idx: int) -> void:
-	var party : Array[TecmonInstance] = Global.player.tecmon_party
-	if party.size() <= 0:
+	var party: Array[TecmonInstance] = Global.player.tecmon_party
+	if idx < 0 or idx >= party.size():
 		return
-	var tecmon := Global.player.tecmon_party[idx]
-	swap_texture.texture = tecmon.data.front_sprite
+	_show_tecmon(party[idx])
 
+func _show_tecmon(tecmon: TecmonInstance) -> void:
+	swap_texture.texture = tecmon.data.front_sprite
+	
+	if tecmon.current_hp <= 0:
+		nine_patch_rect.texture = dead_bg
+	else:
+		nine_patch_rect.texture = alive_bg
+	
 	var ailment_text := "None"
 	if tecmon.ailments.size() > 0:
 		ailment_text = Global.AILMENT_MAP.get(tecmon.ailments[0].type, "Unknown")
-
 	desc.text = "%s\n[%s/%s]\nHP: %d/%d\nAilment: %s" % [
 		tecmon.data.tecmon_name,
 		Enums.TecmonType.keys()[tecmon.data.type_one],
