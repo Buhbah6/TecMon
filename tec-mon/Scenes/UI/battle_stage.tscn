@@ -4,17 +4,40 @@
 [ext_resource type="Texture2D" uid="uid://drvowgqj0k6ti" path="res://Assets/UI/battle_stage.png" id="1_gsrqa"]
 [ext_resource type="Texture2D" uid="uid://dk8c0bx0jrahc" path="res://Assets/Tecmons/ShadowSaint/ShadowSaint.png" id="2_g0eid"]
 [ext_resource type="Shader" uid="uid://i56nufcy127f" path="res://Shaders/bloom.gdshader" id="2_k1xv7"]
-[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="2_r2b17"]
 [ext_resource type="Texture2D" uid="uid://bcf6nbb34xmd2" path="res://Assets/Tecmons/ShadowSaint/ShadowSaintBack.png" id="3_a0fsj"]
 [ext_resource type="AudioStream" uid="uid://b28iyjnd3j00u" path="res://Assets/Sounds/Music/battle_theme.wav" id="3_lpi3d"]
 [ext_resource type="Texture2D" uid="uid://c382hen5x3oht" path="res://Assets/UI/MessageBox.png" id="4_h1yn0"]
+[ext_resource type="Script" uid="uid://brfpe4nw7t14k" path="res://Scripts/UI/action_menu.gd" id="8_bl0sa"]
+[ext_resource type="Texture2D" uid="uid://dvd6j0y81brt4" path="res://Assets/UI/indicator.png" id="8_dcktj"]
 [ext_resource type="Texture2D" uid="uid://dodx1gdo3nvs5" path="res://Assets/Characters/Player/Male/player_fight_start_sheet.png" id="9_dcktj"]
 [ext_resource type="PackedScene" uid="uid://brqllpn4l2iku" path="res://Scenes/UI/tecmon_ui.tscn" id="9_lpi3d"]
 [ext_resource type="PackedScene" uid="uid://c3mwntiqbtsv7" path="res://Scenes/UI/item_ui.tscn" id="10_dcktj"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qcdpq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_182ca"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bl0sa"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_noof4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_uwqvu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8af1u"]
+
 [sub_resource type="Theme" id="Theme_awwja"]
-default_font = ExtResource("2_r2b17")
-default_font_size = 8
+default_font_size = 7
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.45064926, 0.45064783, 0.45064795, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/styles/disabled = SubResource("StyleBoxEmpty_qcdpq")
+Button/styles/focus = SubResource("StyleBoxEmpty_182ca")
+Button/styles/hover = SubResource("StyleBoxEmpty_bl0sa")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_noof4")
+Button/styles/normal = SubResource("StyleBoxEmpty_uwqvu")
+Button/styles/pressed = SubResource("StyleBoxEmpty_8af1u")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awwja"]
 
 [sub_resource type="Animation" id="Animation_djpce"]
 length = 0.001
@@ -300,55 +323,105 @@ patch_margin_left = 7
 patch_margin_top = 7
 patch_margin_right = 7
 patch_margin_bottom = 7
+script = ExtResource("8_bl0sa")
 metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="BattleUI/ActionMenu" unique_id=1402202264]
+[node name="Fight" type="Button" parent="BattleUI/ActionMenu" unique_id=1544166991]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 56.0
+offset_bottom = 24.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_awwja")
+alignment = 0
+
+[node name="Label" type="Label" parent="BattleUI/ActionMenu/Fight" unique_id=1811906041]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = 8.0
-offset_top = -16.0
-offset_right = -8.0
-offset_bottom = 16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="BattleUI/ActionMenu/VBoxContainer" unique_id=773187597]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Fight" type="Button" parent="BattleUI/ActionMenu/VBoxContainer/HBoxContainer" unique_id=1544166991]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
+anchors_preset = -1
+anchor_left = 0.18
+anchor_top = 0.22222222
+anchor_right = 0.98
+anchor_bottom = 0.7777778
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Fight"
+metadata/_edit_use_anchors_ = true
 
-[node name="Items" type="Button" parent="BattleUI/ActionMenu/VBoxContainer/HBoxContainer" unique_id=404049254]
+[node name="Tecmons" type="Button" parent="BattleUI/ActionMenu" unique_id=542659484]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
-text = "Items"
+layout_mode = 0
+offset_left = 6.0
+offset_top = 24.0
+offset_right = 56.0
+offset_bottom = 42.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_awwja")
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="BattleUI/ActionMenu/VBoxContainer" unique_id=2035574070]
-custom_minimum_size = Vector2(0, 16)
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Tecmons" type="Button" parent="BattleUI/ActionMenu/VBoxContainer/HBoxContainer2" unique_id=542659484]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
+[node name="Label" type="Label" parent="BattleUI/ActionMenu/Tecmons" unique_id=664345788]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.18
+anchor_top = 0.22222222
+anchor_right = 0.98
+anchor_bottom = 0.7777778
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Tecmons"
+metadata/_edit_use_anchors_ = true
 
-[node name="Escape" type="Button" parent="BattleUI/ActionMenu/VBoxContainer/HBoxContainer2" unique_id=1379539272]
+[node name="Items" type="Button" parent="BattleUI/ActionMenu" unique_id=404049254]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(48, 0)
-layout_mode = 2
+layout_mode = 0
+offset_left = 56.0
+offset_top = 6.0
+offset_right = 106.0
+offset_bottom = 24.0
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_awwja")
+alignment = 0
+
+[node name="Label" type="Label" parent="BattleUI/ActionMenu/Items" unique_id=402288554]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16
+anchor_top = 0.22222222
+anchor_right = 0.96
+anchor_bottom = 0.7777778
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Items"
+metadata/_edit_use_anchors_ = true
+
+[node name="Escape" type="Button" parent="BattleUI/ActionMenu" unique_id=1379539272]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 56.0
+offset_top = 24.0
+offset_right = 106.0
+offset_bottom = 42.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_awwja")
+alignment = 0
+
+[node name="Label" type="Label" parent="BattleUI/ActionMenu/Escape" unique_id=567338521]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.16
+anchor_top = 0.22222222
+anchor_right = 0.96
+anchor_bottom = 0.7777778
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Escape"
+metadata/_edit_use_anchors_ = true
+
+[node name="Indicator" type="TextureRect" parent="BattleUI/ActionMenu" unique_id=493389679]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5089286
+anchor_top = 0.625
+anchor_right = 0.55357134
+anchor_bottom = 0.7291667
+mouse_filter = 2
+texture = ExtResource("8_dcktj")
+expand_mode = 1
+stretch_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyDetails" type="VBoxContainer" parent="BattleUI" unique_id=437340371]
 layout_mode = 0
@@ -420,7 +493,7 @@ unique_name_in_owner = true
 visible = false
 layout_mode = 1
 
-[connection signal="pressed" from="BattleUI/ActionMenu/VBoxContainer/HBoxContainer/Fight" to="." method="_on_fight_pressed"]
-[connection signal="pressed" from="BattleUI/ActionMenu/VBoxContainer/HBoxContainer/Items" to="." method="_on_items_pressed"]
-[connection signal="pressed" from="BattleUI/ActionMenu/VBoxContainer/HBoxContainer2/Tecmons" to="." method="_on_tecmons_pressed"]
-[connection signal="pressed" from="BattleUI/ActionMenu/VBoxContainer/HBoxContainer2/Escape" to="." method="_on_escape_pressed"]
+[connection signal="pressed" from="BattleUI/ActionMenu/Fight" to="." method="_on_fight_pressed"]
+[connection signal="pressed" from="BattleUI/ActionMenu/Tecmons" to="." method="_on_tecmons_pressed"]
+[connection signal="pressed" from="BattleUI/ActionMenu/Items" to="." method="_on_items_pressed"]
+[connection signal="pressed" from="BattleUI/ActionMenu/Escape" to="." method="_on_escape_pressed"]
