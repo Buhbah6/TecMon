@@ -82,12 +82,13 @@ func _on_encounter_started(enemy_instance: TecmonInstance) -> void:
 
 func _on_battle_started() -> void:
 	AudioManager.play_music(battle_themes.pick_random())
-	animation_player.play("idle")
-	_refresh_hp_bars()
+	_refresh_hp_bars(false)
 	new_turn()
 	show()
 	await SceneManager._transition_in()
 	animation_player.play("tecmon_chosen")
+	await animation_player.animation_finished
+	animation_player.play("idle")
 	
 func _play_chosen_flash(sprite_number: int) -> void:
 	var sprite = player_sprite if sprite_number == 1 else enemy_sprite
@@ -127,24 +128,62 @@ func _set_battle_buttons_disabled(enabled: bool) -> void:
 	for button in move_buttons:
 		button.disabled = enabled
 		
-func _refresh_hp_bars() -> void:
+func _animate_hp(bar: ProgressBar, label: Label, participant: BattleParticipant) -> Tween:
+	var start_hp := roundi(bar.value / 100.0 * participant.max_hp())
+	var target_percent := participant.hp_percent() * 100.0
+	var target_hp := participant.current_hp()
+
+	var tween := create_tween()
+	tween.set_parallel(true)
+	tween.tween_property(bar, "value", target_percent, 0.4).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_method(
+		func(hp: int): label.text = str(hp) + "/ " + str(participant.max_hp()),
+		start_hp, target_hp, 0.4
+	).set_trans(Tween.TRANS_LINEAR)
+	return tween
+
+func _set_hp_instant(bar: ProgressBar, label: Label, participant: BattleParticipant) -> void:
+	bar.value = participant.hp_percent() * 100.0
+	label.text = str(participant.current_hp()) + "/ " + str(participant.max_hp())
+
+## Refreshes and animates just the enemy side
+func _refresh_enemy_hp(animated: bool = true) -> Tween:
 	var enemy: BattleParticipant = BattleSystem.enemy_participant
+	if not enemy:
+		return null
+	enemy_sprite.texture = enemy.current_mon.get_front_sprite()
+	enemy_name_label.text = enemy.display_name() + " Lv." + str(enemy.current_mon.level)
+	if animated:
+		return _animate_hp(enemy_hp_bar, enemy_hp_label, enemy)
+	_set_hp_instant(enemy_hp_bar, enemy_hp_label, enemy)
+	return null
+
+## Refreshes and animates just the player side.
+func _refresh_player_hp(animated: bool = true) -> Tween:
 	var player: BattleParticipant = BattleSystem.player_participant
+	if not player:
+		return null
+	player_sprite.texture = player.current_mon.get_back_sprite()
+	player_name_label.text = player.display_name() + " Lv." + str(player.current_mon.level)
+	if animated:
+		return _animate_hp(player_hp_bar, player_hp_label, player)
+	_set_hp_instant(player_hp_bar, player_hp_label, player)
+	return null
 
-	if enemy:
-		enemy_sprite.texture = enemy.current_mon.get_front_sprite()
-		enemy_name_label.text = enemy.display_name() + " Lv." + str(enemy.current_mon.level)
-		enemy_hp_bar.value = enemy.hp_percent() * 100.0
-		enemy_hp_label.text = str(enemy.current_hp()) + "/ " + str(enemy.max_hp())
+##refresh both at once
+func _refresh_hp_bars(animated: bool = true) -> void:
+	_refresh_enemy_hp(animated)
+	_refresh_player_hp(animated)
+	
+func _on_move_executed(_user: BattleParticipant, target: BattleParticipant, _move: MoveInstance, _result: MoveResult) -> void:
+	var tween: Tween
+	if target == BattleSystem.enemy_participant:
+		tween = _refresh_enemy_hp()
+	else:
+		tween = _refresh_player_hp()
 
-	if player:
-		player_sprite.texture = player.current_mon.get_back_sprite()
-		player_name_label.text = player.display_name() + " Lv." + str(player.current_mon.level)
-		player_hp_bar.value = player.hp_percent() * 100.0
-		player_hp_label.text = str(player.current_hp()) + "/ " + str(player.max_hp())
-
-func _on_move_executed(_user: BattleParticipant, _target: BattleParticipant, _move: MoveInstance, _result: MoveResult) -> void:
-	_refresh_hp_bars()
+	if tween:
+		await tween.finished
 
 func _on_fight_pressed() -> void:
 	if not can_input:
@@ -204,20 +243,26 @@ func _close_sub_ui() -> void:
 
 func _on_tecmon_switched(index: int) -> void:
 	var current_index := BattleSystem.player_participant.party.find(BattleSystem.player_participant.current_mon)
+	MessageBus._message_box._clear_passive()
 	if index == current_index and not force_switch:
 		_close_sub_ui()
 		await _say("That Tecmon is already sent out")
-		MessageBus.send_passive("What will " + BattleSystem.player_participant.display_name() + " do?")
 		return
 		
 	BattleSystem.player_participant.switch_to(index)
 	_refresh_hp_bars()
 	_close_sub_ui()
+	player_sprite.hide()
+	animation_player.play("tecmon_chosen")
 	await _say("You sent out " + BattleSystem.player_participant.display_name() + "!")
-
+	if animation_player.is_playing():
+		await animation_player.animation_finished
+	animation_player.play("idle")
+	
 	if not force_switch:
+		print("calling skip_turn, phase = ", BattleSystem.phase)
 		BattleSystem.skip_turn()
-
+	
 	is_switching = false
 	force_switch = false
 	MessageBus.send_passive("What will " + BattleSystem.player_participant.display_name() + " do?")

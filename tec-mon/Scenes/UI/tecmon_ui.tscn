@@ -1,14 +1,11 @@
 [gd_scene format=3 uid="uid://brqllpn4l2iku"]
 
-[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="1_ygqyw"]
+[ext_resource type="Theme" uid="uid://bpr41avimp173" path="res://Config/general_theme.tres" id="1_6aeki"]
 [ext_resource type="Script" uid="uid://c17jutargvulh" path="res://Scripts/UI/tecmon_ui.gd" id="2_6aeki"]
 [ext_resource type="Texture2D" uid="uid://jf1xrasv85op" path="res://Assets/UI/tecmon_menu.png" id="2_xcssh"]
 [ext_resource type="Texture2D" uid="uid://dl3hbw0qxuj1q" path="res://Assets/UI/tecmon_frame.png" id="3_6aeki"]
 [ext_resource type="PackedScene" uid="uid://dc71oj1pdd6ct" path="res://Scenes/UI/tecmon_details.tscn" id="3_rsubf"]
-
-[sub_resource type="Theme" id="Theme_awwja"]
-default_font = ExtResource("1_ygqyw")
-default_font_size = 8
+[ext_resource type="Texture2D" uid="uid://daq1hfl0vv2rd" path="res://Assets/UI/tecmon_fainted_frame.png" id="5_6aeki"]
 
 [node name="TecmonUI" type="Control" unique_id=1340260547]
 layout_mode = 3
@@ -17,9 +14,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_awwja")
+theme = ExtResource("1_6aeki")
 script = ExtResource("2_6aeki")
 details_template = ExtResource("3_rsubf")
+alive_bg = ExtResource("3_6aeki")
+dead_bg = ExtResource("5_6aeki")
 metadata/_edit_use_anchors_ = true
 
 [node name="BG" type="TextureRect" parent="." unique_id=1105908710]
@@ -34,25 +33,26 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TecmonDetailContainer" type="VBoxContainer" parent="." unique_id=532023957]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(160, 0)
-custom_maximum_size = Vector2(-1, 144)
+custom_minimum_size = Vector2(0, 124)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.475
-anchor_top = 0.05
-anchor_right = 0.975
-anchor_bottom = 0.95
+anchor_top = 0.15
+anchor_right = 0.9625
+anchor_bottom = 0.925
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=788308765]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(70, 70)
 layout_mode = 0
-offset_left = 24.0
-offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 80.0
+offset_left = 12.0
+offset_top = 22.0
+offset_right = 84.0
+offset_bottom = 94.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("3_6aeki")
 patch_margin_left = 4
@@ -74,18 +74,37 @@ size_flags_vertical = 4
 
 [node name="BackButton" type="Button" parent="." unique_id=1371067226]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = 21.0
-offset_top = 133.0
-offset_right = 93.0
-offset_bottom = 149.0
+custom_maximum_size = Vector2(-1, 8)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7375
+anchor_top = 0.075
+anchor_right = 0.9625
+anchor_bottom = 0.125
 text = "Back"
+metadata/_edit_use_anchors_ = true
 
 [node name="TecmonDesc" type="RichTextLabel" parent="." unique_id=1743972141]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 24.0
-offset_top = 84.0
-offset_right = 120.0
-offset_bottom = 124.0
+offset_left = 12.0
+offset_top = 95.0
+offset_right = 128.0
+offset_bottom = 147.0
 text = "No Tecmons"
+
+[node name="Party" type="Label" parent="." unique_id=1783265397]
+layout_mode = 0
+offset_left = 152.0
+offset_top = 12.0
+offset_right = 209.0
+offset_bottom = 20.0
+text = "Tecmon Party"
+
+[node name="Current" type="Label" parent="." unique_id=1892863832]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 78.0
+offset_bottom = 20.0
+text = "Current Tecmon:"

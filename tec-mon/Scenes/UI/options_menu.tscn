@@ -69,9 +69,9 @@ metadata/_tab_index = 0
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.014705882
-anchor_top = 0.06849315
+anchor_top = 0.021276612
 anchor_right = 0.9852941
-anchor_bottom = 0.94520545
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/scrollbar_h_separation = 4
@@ -94,6 +94,7 @@ text = "Resolution"
 
 [node name="ResolutionDropdown" type="OptionButton" parent="MenuBG/Control/TabContainer/Video/ScrollContainer/VBoxContainer/Resolution" unique_id=1064887323]
 texture_filter = 1
+custom_maximum_size = Vector2(-1, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 toggle_mode = false
@@ -360,9 +361,10 @@ input_name = "inventory"
 [node name="BackButton" type="Button" parent="MenuBG/Control" unique_id=1023376396]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.7647059
-anchor_right = 0.9852941
-anchor_bottom = 0.16964285
+anchor_left = 0.8933824
+anchor_right = 1.0
+anchor_bottom = 0.15178572
+offset_bottom = 1.0
 text = "Back"
 metadata/_edit_use_anchors_ = true
 

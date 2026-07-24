@@ -2,9 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bge123goo77i2" path="res://Scripts/UI/dialogue_manager.gd" id="1_vyoup"]
 [ext_resource type="Texture2D" uid="uid://c382hen5x3oht" path="res://Assets/UI/MessageBox.png" id="2_5yn7y"]
-[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="3_vyoup"]
 [ext_resource type="Texture2D" uid="uid://bwebovny3j8b8" path="res://Assets/UI/PortraitBox.png" id="4_5yn7y"]
-[ext_resource type="Texture2D" uid="uid://7c6x878jski6" path="res://Assets/Characters/ForestNpcs.png" id="5_vyoup"]
+[ext_resource type="Texture2D" uid="uid://b2q77sq0djb30" path="res://Assets/Characters/ForestNpcs_Trainers.png" id="5_vyoup"]
 
 [node name="DialogueManager" type="Control" unique_id=868713976 node_paths=PackedStringArray("box", "label", "sprite")]
 layout_mode = 3
@@ -17,7 +16,7 @@ mouse_filter = 2
 script = ExtResource("1_vyoup")
 box = NodePath("Container/NinePatchRect")
 label = NodePath("Container/NinePatchRect/RichTextLabel")
-sprite = NodePath("Container/NinePatchRect2/Portrait")
+sprite = NodePath("")
 
 [node name="Container" type="Control" parent="." unique_id=1475480154]
 layout_mode = 1
@@ -51,12 +50,12 @@ anchors_preset = -1
 anchor_left = 0.041666668
 anchor_top = 0.20000009
 anchor_right = 0.9583333
-anchor_bottom = 0.60000014
+anchor_bottom = 0.7966502
 offset_right = 176.0
-offset_bottom = 32.0
+offset_bottom = 24.067566
 scale = Vector2(0.5, 0.5)
 theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("3_vyoup")
+theme_override_font_sizes/normal_font_size = 14
 bbcode_enabled = true
 text = "Placeholder"
 visible_characters_behavior = 1
@@ -68,10 +67,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.084375
 anchor_top = 0.64375
-anchor_right = 0.684375
-anchor_bottom = 0.89586145
-offset_right = -144.0
-offset_bottom = 7.6621704
+anchor_right = 0.234375
+anchor_bottom = 0.94375
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_5yn7y")
@@ -81,15 +78,13 @@ patch_margin_right = 2
 patch_margin_bottom = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="Portrait" type="Sprite2D" parent="Container/NinePatchRect2" unique_id=1066217872]
-unique_name_in_owner = true
-show_behind_parent = true
-position = Vector2(24.000002, 36.999996)
-scale = Vector2(1.0952382, 1.0828996)
+[node name="Portrait" type="Sprite2D" parent="Container/NinePatchRect2" unique_id=714713574]
+z_index = -1
+position = Vector2(23, 34)
 texture = ExtResource("5_vyoup")
 flip_h = true
 region_enabled = true
-region_rect = Rect2(459, 3, 42, 61)
+region_rect = Rect2(0, 0, 64, 64)
 
 [node name="MessageTimer" type="Timer" parent="." unique_id=735205660]
 wait_time = 0.5

@@ -4,13 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://biksvx28e0gqs" path="res://Assets/UI/MainMenu/TempLogo.png" id="2_uahs1"]
 [ext_resource type="Script" uid="uid://c4aclg85ofe2k" path="res://Scripts/UI/menu_section.gd" id="4_457bt"]
 [ext_resource type="Theme" uid="uid://bpr41avimp173" path="res://Config/general_theme.tres" id="4_xqnlp"]
-[ext_resource type="FontFile" uid="uid://cnww23kfbhjq0" path="res://Assets/Fonts/Minecraft.ttf" id="5_sv7jc"]
 [ext_resource type="Texture2D" uid="uid://d1v3nxc0io2ag" path="res://Assets/UI/MenuBox.png" id="6_2m23o"]
 [ext_resource type="PackedScene" uid="uid://y6iu1672d2g3" path="res://Scenes/UI/credits.tscn" id="9_dk7ck"]
-
-[sub_resource type="Theme" id="Theme_n3rge"]
-default_font = ExtResource("5_sv7jc")
-default_font_size = 11
 
 [sub_resource type="Theme" id="Theme_sv7jc"]
 default_font_size = 6
@@ -23,6 +18,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("4_xqnlp")
 script = ExtResource("4_457bt")
 background = NodePath("Background")
 
@@ -106,7 +102,6 @@ grow_vertical = 2
 custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../OptionsButton")
-theme = SubResource("Theme_n3rge")
 theme_override_colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
 theme_override_colors/font_hover_pressed_color = Color(1, 1, 1, 1)
 text = "Start"
@@ -116,7 +111,6 @@ custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../ExitButton")
-theme = SubResource("Theme_n3rge")
 text = "Options"
 
 [node name="ExitButton" type="Button" parent="MenuLayer/MenuSection/VBoxContainer" unique_id=2007150299]
@@ -124,7 +118,6 @@ custom_minimum_size = Vector2(0, 18)
 layout_mode = 2
 focus_neighbor_top = NodePath("../OptionsButton")
 focus_neighbor_right = NodePath("../../CreditsButton")
-theme = SubResource("Theme_n3rge")
 text = "Exit"
 
 [node name="CreditsButton" type="Button" parent="MenuLayer/MenuSection" unique_id=880950757]
